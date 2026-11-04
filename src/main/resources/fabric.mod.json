@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "majorasblock",
+  "version": "${version}",
+  "name": "Majora's Block",
+  "description": "A mysterious adventure for Minecraft.",
+  "authors": ["Undertale-Dungeons"],
+  "contact": {
+    "sources": "https://github.com/Undertale-Dungeons/Majoras-Blocks"
+  },
+  "license": "All-Rights-Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.majorasblock.MajorasBlock"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

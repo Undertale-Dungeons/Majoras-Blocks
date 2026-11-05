@@ -1,6 +1,8 @@
 package dev.majorasblock.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import dev.majorasblock.dungeon.DungeonStructureBuilder;
 import dev.majorasblock.time.AdventureTimeRuntime;
 import dev.majorasblock.time.ThreeDayCycle;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -24,6 +26,25 @@ public final class AdventureCommands {
             dispatcher.register(
                     literal("majorasblock")
                             .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
+                            .then(literal("dungeon")
+                                    .then(literal("build")
+                                            .then(argument("dungeon", StringArgumentType.word())
+                                                    .executes(context -> {
+                                                        var player = context.getSource().getPlayerOrException();
+                                                        String dungeonId = StringArgumentType.getString(context, "dungeon");
+                                                        var result = DungeonStructureBuilder.build(
+                                                                context.getSource().getLevel(),
+                                                                player.blockPosition(),
+                                                                dungeonId
+                                                        );
+                                                        context.getSource().sendSuccess(
+                                                                () -> Component.literal("Built " + result.dungeonName()
+                                                                        + " test structure. Placed " + result.blocksPlaced()
+                                                                        + " blocks in air at " + result.origin().toShortString() + "."),
+                                                                true
+                                                        );
+                                                        return 1;
+                                                    }))))
                             .then(literal("status").executes(context -> {
                                 ServerLevel overworld = context.getSource().getServer().overworld();
                                 Optional<Holder<WorldClock>> clock = overworld.dimensionType().defaultClock();

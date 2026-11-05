@@ -1,5 +1,6 @@
 package dev.majorasblock.time;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +19,12 @@ public final class AdventureTimeRuntime {
     private static final float INVERTED_RATE = 0.5f;
 
     private AdventureTimeRuntime() {}
+
+    /** Ensure a saved slow-time rate cannot leak into a fresh server session. */
+    public static void register() {
+        ServerLifecycleEvents.SERVER_STARTED.register(AdventureTimeRuntime::restoreNormalTime);
+        ServerLifecycleEvents.SERVER_STOPPING.register(AdventureTimeRuntime::restoreNormalTime);
+    }
 
     public static void activateInvertedTime(MinecraftServer server) {
         forEachDefaultClock(server, clock -> server.clockManager().setRate(clock, INVERTED_RATE));

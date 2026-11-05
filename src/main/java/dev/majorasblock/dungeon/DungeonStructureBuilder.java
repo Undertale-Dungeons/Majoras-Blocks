@@ -32,7 +32,7 @@ public final class DungeonStructureBuilder {
         room(level, origin, 0, 0, 11, palette, counter, true);
         room(level, origin, 16, 0, 11, palette, counter, true);
         room(level, origin, 0, 16, 11, palette, counter, true);
-        room(level, origin, 13, 13, 17, palette, counter, false);
+        room(level, origin, 13, 13, 17, palette, counter, true);
 
         corridor(level, origin, 10, 4, 3, 6, palette, counter, true);
         corridor(level, origin, 4, 10, 3, 6, palette, counter, false);

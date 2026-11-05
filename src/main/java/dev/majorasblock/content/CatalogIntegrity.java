@@ -37,6 +37,9 @@ public final class CatalogIntegrity {
                 throw new IllegalStateException("Boss references missing dungeon: " + boss.id());
             }
         }
+        if (EnemyPrototypeService.prototypeCount() != EnemyCatalog.all().size()) {
+            throw new IllegalStateException("Every catalogued enemy must have a prototype spawn mapping.");
+        }
         for (EnemyCatalog.Enemy enemy : EnemyCatalog.all()) {
             if (enemy.health() <= 0 || enemy.movementSpeed() <= 0 || enemy.movementSpeed() > 1) {
                 throw new IllegalStateException("Invalid enemy tuning: " + enemy.id());

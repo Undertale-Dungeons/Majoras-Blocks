@@ -6,6 +6,7 @@ import dev.majorasblock.content.CatalogIntegrity;
 import dev.majorasblock.content.EnemyCatalog;
 import dev.majorasblock.content.ModItems;
 import dev.majorasblock.music.OriginalSongPlaybackController;
+import dev.majorasblock.time.AdventureTimeRuntime;
 import dev.majorasblock.horror.DrownedRuntime;
 import dev.majorasblock.content.SongCatalog;
 import dev.majorasblock.deity.DeitySpiritCatalog;
@@ -23,6 +24,7 @@ public final class MajorasBlock implements ModInitializer {
         CatalogIntegrity.validate();
         ModItems.register();
         OriginalSongPlaybackController.register();
+        AdventureTimeRuntime.register();
         DrownedRuntime.register();
         AdventureCommands.register();
 

@@ -10,7 +10,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -50,12 +52,16 @@ public final class DrownedRuntime {
 
     private static void tick(MinecraftServer server) {
         long worldTick = server.overworld().getGameTime();
+        Set<UUID> onlinePlayers = new HashSet<>();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            DrownedModeController mode = MODES.get(player.getUUID());
+            UUID playerId = player.getUUID();
+            onlinePlayers.add(playerId);
+            DrownedModeController mode = MODES.get(playerId);
             if (mode == null || !mode.isEnabled()) continue;
             Effect effect = mode.pollEffect(worldTick);
             if (effect != null) dispatch(player, effect, worldTick);
         }
+        MODES.keySet().removeIf(playerId -> !onlinePlayers.contains(playerId));
     }
 
     private static void dispatch(ServerPlayer player, Effect effect, long tick) {

@@ -43,7 +43,10 @@ public final class FriendshipSongService {
 
         PlayerPresence traveller = onlinePlayers.get(travellerId);
         PlayerPresence friend = onlinePlayers.get(friendId);
-        if (traveller == null || friend == null || !friend.acceptsFriendshipArrivals()) {
+        if (traveller == null || friend == null
+                || !travellerId.equals(traveller.playerId())
+                || !friendId.equals(friend.playerId())
+                || !friend.acceptsFriendshipArrivals()) {
             return Optional.empty();
         }
 

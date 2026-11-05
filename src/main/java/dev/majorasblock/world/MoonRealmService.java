@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Relative;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -44,47 +43,16 @@ public final class MoonRealmService {
     public static boolean returnFromMoon(MinecraftServer server, ServerPlayer player) {
         if (server == null || player == null) return false;
         ReturnPoint saved = RETURN_POINTS.get(player.getUUID());
-        ServerLevel destination = saved == null ? server.overworld() : server.getLevel(saved.dimension());
-        if (destination == null) destination = server.overworld();
+        if (saved == null) return false;
 
-        double x;
-        double y;
-        double z;
-        float yaw;
-        float pitch;
-        if (saved == null || destination == server.overworld() && saved.dimension() != Level.OVERWORLD) {
-            BlockPos spawn = server.overworld().getSharedSpawnPos();
-            BlockPos safe = findSafeLanding(server.overworld(), spawn);
-            if (safe == null) return false;
-            x = safe.getX() + 0.5;
-            y = safe.getY();
-            z = safe.getZ() + 0.5;
-            yaw = player.getYRot();
-            pitch = 0.0f;
-            destination = server.overworld();
-        } else {
-            BlockPos savedPos = BlockPos.containing(saved.x(), saved.y(), saved.z());
-            BlockPos safe = findSafeLanding(destination, savedPos);
-            if (safe == null) {
-                BlockPos spawn = server.overworld().getSharedSpawnPos();
-                safe = findSafeLanding(server.overworld(), spawn);
-                if (safe == null) return false;
-                destination = server.overworld();
-                x = safe.getX() + 0.5;
-                y = safe.getY();
-                z = safe.getZ() + 0.5;
-                yaw = player.getYRot();
-                pitch = 0.0f;
-            } else {
-                x = saved.x();
-                y = safe.getY();
-                z = saved.z();
-                yaw = saved.yaw();
-                pitch = saved.pitch();
-            }
-        }
+        ServerLevel destination = server.getLevel(saved.dimension());
+        if (destination == null) return false;
+        BlockPos savedPos = BlockPos.containing(saved.x(), saved.y(), saved.z());
+        BlockPos safe = findSafeLanding(destination, savedPos);
+        if (safe == null) return false;
 
-        boolean moved = player.teleportTo(destination, x, y, z, Set.of(), yaw, pitch, true);
+        boolean moved = player.teleportTo(destination,
+                saved.x(), safe.getY(), saved.z(), Set.of(), saved.yaw(), saved.pitch(), true);
         if (moved) RETURN_POINTS.remove(player.getUUID());
         return moved;
     }
@@ -132,7 +100,7 @@ public final class MoonRealmService {
                 }
             }
         }
-        placeIfAir(level, CENTER.above(), Blocks.SEA_LANTERN);
+        placeIfAir(level, CENTER.offset(0, 1, 5), Blocks.SEA_LANTERN);
     }
 
     private static void ring(ServerLevel level, BlockPos center, int radius, Block block) {

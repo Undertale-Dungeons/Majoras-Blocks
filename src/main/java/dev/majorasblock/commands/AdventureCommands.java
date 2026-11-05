@@ -9,6 +9,7 @@ import dev.majorasblock.horror.DrownedModeController;
 import dev.majorasblock.horror.DrownedRuntime;
 import dev.majorasblock.time.AdventureTimeRuntime;
 import dev.majorasblock.time.ThreeDayCycle;
+import dev.majorasblock.songs.FriendshipArrivalRuntime;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -40,7 +41,6 @@ public final class AdventureCommands {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(
                     literal("majorasblock")
-                            .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
                             .then(literal("drowned")
                                     .then(argument("intensity", StringArgumentType.word())
                                             .executes(context -> {
@@ -63,6 +63,7 @@ public final class AdventureCommands {
                                                 return 1;
                                             })))
                             .then(literal("enemy")
+                                    .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
                                     .then(literal("spawn")
                                             .then(argument("enemy", StringArgumentType.word())
                                                     .executes(context -> {
@@ -83,6 +84,7 @@ public final class AdventureCommands {
                                                         return 1;
                                                     }))))
                             .then(literal("dungeon")
+                                    .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
                                     .then(literal("build")
                                             .then(argument("dungeon", StringArgumentType.word())
                                                     .executes(context -> {
@@ -101,8 +103,59 @@ public final class AdventureCommands {
                                                         );
                                                         return 1;
                                                     }))))
+                            .then(literal("friendship")
+                                    .then(literal("accept").executes(context -> {
+                                        var player = context.getSource().getPlayerOrException();
+                                        FriendshipArrivalRuntime.setConsent(player.getUUID(), true);
+                                        context.getSource().sendSuccess(
+                                                () -> Component.literal("Song of Friendship arrivals are now enabled for this session."),
+                                                false
+                                        );
+                                        return 1;
+                                    }))
+                                    .then(literal("deny").executes(context -> {
+                                        var player = context.getSource().getPlayerOrException();
+                                        FriendshipArrivalRuntime.setConsent(player.getUUID(), false);
+                                        context.getSource().sendSuccess(
+                                                () -> Component.literal("Song of Friendship arrivals are now disabled."),
+                                                false
+                                        );
+                                        return 1;
+                                    })))
                             .then(literal("song")
-                                    .then(literal("friendship").executes(context -> playSong(context, "song_of_friendship")))
+                                    .then(literal("friendship")
+                                            .then(argument("friend", StringArgumentType.word())
+                                                    .executes(context -> {
+                                                        var traveller = context.getSource().getPlayerOrException();
+                                                        String friendName = StringArgumentType.getString(context, "friend");
+                                                        var friend = context.getSource().getServer()
+                                                                .getPlayerList().getPlayerByName(friendName);
+                                                        if (friend == null) {
+                                                            context.getSource().sendFailure(Component.literal("That player is not online."));
+                                                            return 0;
+                                                        }
+                                                        if (friend == traveller) {
+                                                            context.getSource().sendFailure(Component.literal("Choose another player."));
+                                                            return 0;
+                                                        }
+                                                        if (!FriendshipArrivalRuntime.accepts(friend.getUUID())) {
+                                                            context.getSource().sendFailure(Component.literal(
+                                                                    friend.getGameProfile().name() + " has not enabled Friendship arrivals."));
+                                                            return 0;
+                                                        }
+                                                        if (!FriendshipArrivalRuntime.teleport(traveller, friend)) {
+                                                            context.getSource().sendFailure(Component.literal(
+                                                                    "No safe arrival space was found near that player."));
+                                                            return 0;
+                                                        }
+                                                        playSong(context, "song_of_friendship");
+                                                        context.getSource().sendSuccess(
+                                                                () -> Component.literal("You soared to " + friend.getGameProfile().name() + "."),
+                                                                false
+                                                        );
+                                                        return 1;
+                                                    }))
+                                            .executes(context -> playSong(context, "song_of_friendship")))
                                     .then(literal("inverted_time").executes(context -> {
                                         AdventureTimeRuntime.activateInvertedTime(context.getSource().getServer());
                                         playSong(context, "song_of_inverted_time");
@@ -151,6 +204,7 @@ public final class AdventureCommands {
                                 return 1;
                             }))
                             .then(literal("time")
+                                    .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
                                     .then(literal("slow").executes(context -> {
                                         AdventureTimeRuntime.activateInvertedTime(context.getSource().getServer());
                                         context.getSource().sendSuccess(

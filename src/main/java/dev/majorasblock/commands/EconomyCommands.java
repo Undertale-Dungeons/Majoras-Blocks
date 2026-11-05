@@ -48,6 +48,8 @@ public final class EconomyCommands {
                                                     builder.suggest("deku");
                                                     builder.suggest("goron");
                                                     builder.suggest("zora");
+                                                    builder.suggest("razor");
+                                                    builder.suggest("gilded");
                                                     return builder.buildFuture();
                                                 })
                                                 .executes(context -> {
@@ -61,13 +63,15 @@ public final class EconomyCommands {
                                                                         + "Your heirloom will be ready after one in-game day. "
                                                                         + "Use /majorasblock smith collect at the forge."), false);
                                                         case UNKNOWN_BLUEPRINT -> context.getSource().sendFailure(Component.literal(
-                                                                "Choose hero, deku, goron, or zora."));
+                                                                "Choose hero, deku, goron, zora, razor, or gilded."));
                                                         case NOT_AT_FORGE -> context.getSource().sendFailure(Component.literal(
                                                                 "You need to be beside a built Blacksmith Forge."));
                                                         case ALREADY_ORDERED -> context.getSource().sendFailure(Component.literal(
                                                                 "You already have an unfinished blacksmith order."));
                                                         case WRONG_FORM -> context.getSource().sendFailure(Component.literal(
                                                                 "Wear the matching Deku, Goron, or Zora form mask before ordering that heirloom."));
+                                                        case MISSING_MATERIALS -> context.getSource().sendFailure(Component.literal(
+                                                                "Razor needs the Hero's Sword and a Deku Photograph. Gilded needs the Razor Sword, Golden Dust, and an Odolwa Portrait."));
                                                         case NOT_ENOUGH_RUPEES -> context.getSource().sendFailure(Component.literal(
                                                                 "The blacksmith needs 100 rupees."));
                                                         case CLOCK_UNAVAILABLE -> context.getSource().sendFailure(Component.literal(

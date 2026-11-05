@@ -5,6 +5,7 @@ import dev.majorasblock.items.ClockworkHourglassItem;
 import dev.majorasblock.items.OcarinaItem;
 import dev.majorasblock.items.SpiritCharmItem;
 import dev.majorasblock.items.MaskItem;
+import dev.majorasblock.items.RazorSwordItem;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -31,6 +32,14 @@ public final class ModItems {
     public static final Item DEKU_SWORD = registerSimpleItem("deku_sword", 1);
     public static final Item GORON_SWORD = registerSimpleItem("goron_sword", 1);
     public static final Item ZORA_SWORD = registerSimpleItem("zora_sword", 1);
+    public static final Item RAZOR_SWORD = registerRazorSword();
+    public static final Item GILDED_SWORD = registerSimpleItem("gilded_sword", 1);
+    public static final Item DEKU_PHOTOGRAPH = registerSimpleItem("deku_photograph", 1);
+    public static final Item GOLDEN_DUST = registerSimpleItem("golden_dust", 16);
+    public static final Item ODOLWA_PORTRAIT = registerSimpleItem("odolwa_portrait", 1);
+    public static final Item DEKU_NUT = registerSimpleItem("deku_nut", 16);
+    public static final Item LIFE_CRYSTAL = registerSimpleItem("life_crystal", 16);
+    public static final Item SPIRIT_SHARD = registerSimpleItem("spirit_shard", 16);
 
     public static final Item SPIRIT_OF_MOTION = registerSpiritCharm("spirit_of_motion_charm", MobEffects.SPEED);
     public static final Item SPIRIT_OF_MOONLIGHT = registerSpiritCharm("spirit_of_moonlight_charm", MobEffects.RESISTANCE);
@@ -60,6 +69,14 @@ public final class ModItems {
                 output.accept(DEKU_SWORD);
                 output.accept(GORON_SWORD);
                 output.accept(ZORA_SWORD);
+                output.accept(RAZOR_SWORD);
+                output.accept(GILDED_SWORD);
+                output.accept(DEKU_PHOTOGRAPH);
+                output.accept(GOLDEN_DUST);
+                output.accept(ODOLWA_PORTRAIT);
+                output.accept(DEKU_NUT);
+                output.accept(LIFE_CRYSTAL);
+                output.accept(SPIRIT_SHARD);
                 output.accept(SPIRIT_OF_MOTION);
                 output.accept(SPIRIT_OF_MOONLIGHT);
                 output.accept(SPIRIT_OF_TIDES);
@@ -79,6 +96,12 @@ public final class ModItems {
         ResourceKey<Item> key = itemKey(id);
         return Registry.register(BuiltInRegistries.ITEM, key,
                 new Item(new Item.Properties().stacksTo(maxCount).setId(key)));
+    }
+
+    private static Item registerRazorSword() {
+        ResourceKey<Item> key = itemKey("razor_sword");
+        return Registry.register(BuiltInRegistries.ITEM, key,
+                new RazorSwordItem(new Item.Properties().durability(100).setId(key)));
     }
 
     private static Item registerOcarina() {

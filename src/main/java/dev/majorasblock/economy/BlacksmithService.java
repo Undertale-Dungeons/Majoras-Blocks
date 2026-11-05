@@ -28,7 +28,9 @@ public final class BlacksmithService {
         HERO("hero", "Hero's Sword", ModItems.HERO_SWORD, FormRuntime.Form.NONE),
         DEKU("deku", "Deku Sword", ModItems.DEKU_SWORD, FormRuntime.Form.DEKU),
         GORON("goron", "Goron Sword", ModItems.GORON_SWORD, FormRuntime.Form.GORON),
-        ZORA("zora", "Zora Sword", ModItems.ZORA_SWORD, FormRuntime.Form.ZORA);
+        ZORA("zora", "Zora Sword", ModItems.ZORA_SWORD, FormRuntime.Form.ZORA),
+        RAZOR("razor", "Razor Sword", ModItems.RAZOR_SWORD, FormRuntime.Form.NONE),
+        GILDED("gilded", "Gilded Sword", ModItems.GILDED_SWORD, FormRuntime.Form.NONE);
 
         private final String id;
         private final String displayName;
@@ -62,6 +64,7 @@ public final class BlacksmithService {
         NOT_AT_FORGE,
         ALREADY_ORDERED,
         WRONG_FORM,
+        MISSING_MATERIALS,
         NOT_ENOUGH_RUPEES,
         CLOCK_UNAVAILABLE
     }
@@ -101,11 +104,14 @@ public final class BlacksmithService {
         }
 
         if (countRupees(player) < PRICE_RUPEES) return OrderResult.NOT_ENOUGH_RUPEES;
+        Item[] materials = materialsFor(blueprint);
+        if (!hasItems(player, materials)) return OrderResult.MISSING_MATERIALS;
 
         Optional<Long> now = currentClockTick(server);
         if (now.isEmpty()) return OrderResult.CLOCK_UNAVAILABLE;
 
         removeRupees(player, PRICE_RUPEES);
+        consumeItems(player, materials);
         ORDERS.put(player.getUUID(), new Order(blueprint, now.get() + ThreeDayCycle.TICKS_PER_DAY));
         return OrderResult.ORDERED;
     }
@@ -155,6 +161,48 @@ public final class BlacksmithService {
         if (amount <= 0) return false;
         ItemStack stack = new ItemStack(ModItems.RUPEE, amount);
         return player.getInventory().add(stack);
+    }
+
+    public static boolean spendRupees(ServerPlayer player, int amount) {
+        if (player == null || amount < 0 || countRupees(player) < amount) return false;
+        removeRupees(player, amount);
+        return true;
+    }
+
+    private static Item[] materialsFor(Blueprint blueprint) {
+        return switch (blueprint) {
+            case RAZOR -> new Item[]{ModItems.HERO_SWORD, ModItems.DEKU_PHOTOGRAPH};
+            case GILDED -> new Item[]{ModItems.RAZOR_SWORD, ModItems.GOLDEN_DUST, ModItems.ODOLWA_PORTRAIT};
+            default -> new Item[0];
+        };
+    }
+
+    private static boolean hasItems(ServerPlayer player, Item[] required) {
+        var inventory = player.getInventory();
+        for (Item item : required) {
+            boolean found = false;
+            for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
+                if (inventory.getItem(slot).is(item)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) return false;
+        }
+        return true;
+    }
+
+    private static void consumeItems(ServerPlayer player, Item[] required) {
+        var inventory = player.getInventory();
+        for (Item item : required) {
+            for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
+                ItemStack stack = inventory.getItem(slot);
+                if (stack.is(item)) {
+                    stack.shrink(1);
+                    break;
+                }
+            }
+        }
     }
 
     private static void removeRupees(ServerPlayer player, int amount) {

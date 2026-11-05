@@ -17,7 +17,7 @@ A fan-made Minecraft Java adventure mod inspired by the atmosphere, world, masks
 - **9 dungeons**: the four returning temple concepts and five original dungeons.
 - **9 boss concepts**, with themed memorial arenas for each.
 - **24 enemy concepts** and **24 friendly wandering-creature concepts**.
-- **7 buildable landmarks**, including the Blacksmith Forge, Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.
+- **16 buildable landmarks**, including the Blacksmith Forge, five Clock Town shops, spirit and heart shrines, Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.
 - Six new defensive/traversal gear pieces, directional front/back/side flip mobility, a client-side focus camera, five original ocarina melodies, a three-day clock, DROWNED atmosphere mode, friendship travel, and session-based adventure progression.
 
 The catalogues and item collections are in the build. Some encounter and visual content is still prototype-level; see the honest implementation status below.
@@ -42,7 +42,11 @@ The catalogues and item collections are in the build. Some encounter and visual 
 
 **Cliff hanging.** Hold crouch while airborne and pressing against a wall to catch a ledge. Jump while still holding crouch to vault up and forward; release crouch to let go. This is a server-side traversal mechanic for multiplayer.
 
-**Rupees and blacksmith.** Rupees are an inventory currency. Build the forge with `/majorasblock landmark build blacksmith`. At the forge, order with `/majorasblock smith order hero|deku|goron|zora`. Each order costs 100 rupees and takes one in-game day. Use `/majorasblock smith status` to check the timer and `/majorasblock smith collect` when ready. Deku, Goron, and Zora heirlooms require the matching form. The four sword heirlooms are display collectibles only, not usable weapons. Operators can grant test currency with `/majorasblock rupees grant <amount>`; players can check `/majorasblock rupees balance`. Orders are session-only.
+**Rupees and blacksmith.** Rupees are an inventory currency. Build the forge with `/majorasblock landmark build blacksmith`. At the forge, order with `/majorasblock smith order hero|deku|goron|zora`. Each order costs 100 rupees and takes one in-game day. Use `/majorasblock smith status` to check the timer and `/majorasblock smith collect` when ready. Deku, Goron, and Zora heirlooms require the matching form. The Razor Sword upgrade costs another 100 rupees plus the Hero's Sword and a Deku Photograph. It has 100 ceremonial uses; right-click spends one and at zero it returns to the Hero's Sword. The Gilded Sword costs 100 rupees plus a Razor Sword, Golden Dust and an Odolwa Portrait. These are progression/display collectibles, not damaging weapons. Operators can grant test currency with `/majorasblock rupees grant <amount>`; players can check `/majorasblock rupees balance`. Orders are session-only.
+
+**Clock Town shops.** Build `clocktown_market`, `curio_shop`, `spark_shop`, `pottery_shop` and `spirit_shop` as separate stalls using `/majorasblock landmark build <id>`. Each spawns a named villager. Use `/majorasblock shop list` and `/majorasblock shop buy <item> [amount]` near the matching stall. The spark shop sells lighting and craft supplies rather than explosives.
+
+**Pots and hidden treasures.** Breaking vanilla decorated pots can yield rupees, sticks, Deku Nuts, seeds, bread and rare Golden Dust or Spirit Shards. Build `spirit_grove` or `spirit_spring` and use `/majorasblock treasure claim <id>` for a Spirit Shard. Build `heart_grove` or `heart_cave` to find a Life Crystal. Each location is claimable once per player per world. After a boss victory, an operator can use `/majorasblock boss reward <boss_id>`; each boss reward is globally one-time per world, yielding one Life Crystal solo or two when multiple players are online. Bosses are still catalogue/prototype entries, so this is a manual post-victory trigger.
 
 **Multiplayer.** Friendship arrivals require the destination player to opt in. The current multiplayer work is limited and still needs live server testing.
 

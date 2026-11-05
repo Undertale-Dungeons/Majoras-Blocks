@@ -3,6 +3,8 @@ package dev.majorasblock.dungeon;
 import dev.majorasblock.content.BossCatalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,9 +22,24 @@ public final class LandmarkBuilder {
     private record Palette(Block floor, Block wall, Block trim, Block light) {}
     private static final Map<ResourceKey<Level>, Set<BlockPos>> DEITY_FOUNTAINS = new ConcurrentHashMap<>();
     private static final Map<ResourceKey<Level>, Set<BlockPos>> BLACKSMITHS = new ConcurrentHashMap<>();
-    private static final Map<String,String> LANDMARKS=Map.of(
-        "deity_fountain","Deity Fountain","moon_gate","Moon Gate","clock_tower","Clock Town Clock Tower",
-        "peabert_grove","Peabert Grove","sponge_grotto","Sponge Grotto","starfall_observatory","Starfall Observatory","blacksmith","Blacksmith Forge"
+    private static final Map<ResourceKey<Level>, Map<String, Set<BlockPos>>> LANDMARK_POINTS = new ConcurrentHashMap<>();
+    private static final Map<String,String> LANDMARKS=Map.ofEntries(
+        Map.entry("deity_fountain","Deity Fountain"),
+        Map.entry("moon_gate","Moon Gate"),
+        Map.entry("clock_tower","Clock Town Clock Tower"),
+        Map.entry("peabert_grove","Peabert Grove"),
+        Map.entry("sponge_grotto","Sponge Grotto"),
+        Map.entry("starfall_observatory","Starfall Observatory"),
+        Map.entry("blacksmith","Blacksmith Forge"),
+        Map.entry("clocktown_market","Clock Town Market"),
+        Map.entry("curio_shop","Clock Town Curio Shop"),
+        Map.entry("spark_shop","Clock Town Spark Shop"),
+        Map.entry("pottery_shop","Clock Town Pottery Shop"),
+        Map.entry("spirit_shop","Clock Town Spirit Shop"),
+        Map.entry("spirit_grove","Spirit Grove"),
+        Map.entry("spirit_spring","Spirit Spring"),
+        Map.entry("heart_grove","Heart Piece Grove"),
+        Map.entry("heart_cave","Heart Crystal Cave")
     );
     private LandmarkBuilder() {}
     public static List<String> ids(){return LANDMARKS.keySet().stream().sorted().toList();}
@@ -39,7 +56,16 @@ public final class LandmarkBuilder {
             case "sponge_grotto" -> grotto(level,o,c);
             case "starfall_observatory" -> observatory(level,o,c);
             case "blacksmith" -> blacksmith(level,o,c);
+            case "clocktown_market", "curio_shop", "spark_shop", "pottery_shop", "spirit_shop" -> shopStall(level,o,c,id);
+            case "spirit_grove", "spirit_spring" -> spiritSite(level,o,c,id);
+            case "heart_grove", "heart_cave" -> heartSite(level,o,c,id);
             default -> throw new IllegalStateException("Missing landmark builder: "+id);
+        }
+        LANDMARK_POINTS.computeIfAbsent(level.dimension(), ignored -> new ConcurrentHashMap<>())
+                .computeIfAbsent(id, ignored -> ConcurrentHashMap.newKeySet()).add(o.immutable());
+        if (id.equals("blacksmith") || id.equals("clocktown_market") || id.equals("curio_shop")
+                || id.equals("spark_shop") || id.equals("pottery_shop") || id.equals("spirit_shop")) {
+            spawnShopkeeper(level, o, id);
         }
         if (id.equals("deity_fountain")) {
             DEITY_FOUNTAINS.computeIfAbsent(level.dimension(), ignored -> ConcurrentHashMap.newKeySet())
@@ -80,6 +106,22 @@ public final class LandmarkBuilder {
         return false;
     }
 
+    public static boolean isNearLandmark(ServerLevel level, BlockPos position, String landmarkId, int radius) {
+        if (level == null || position == null || landmarkId == null || radius < 0) return false;
+        Map<String, Set<BlockPos>> byId = LANDMARK_POINTS.get(level.dimension());
+        if (byId == null) return false;
+        Set<BlockPos> points = byId.get(landmarkId);
+        if (points == null) return false;
+        long limit = (long) radius * radius;
+        for (BlockPos center : points) {
+            long dx = position.getX() - center.getX();
+            long dy = position.getY() - center.getY();
+            long dz = position.getZ() - center.getZ();
+            if (dx * dx + dy * dy + dz * dz <= limit) return true;
+        }
+        return false;
+    }
+
     public static BuildResult buildBossMemorial(ServerLevel level,BlockPos requested,String bossId){
         BossCatalog.Boss boss=BossCatalog.byId(bossId)
                 .orElseThrow(()->new IllegalArgumentException("Unknown boss: "+bossId));
@@ -92,6 +134,93 @@ public final class LandmarkBuilder {
         place(level,o.above(3),p.light().defaultBlockState(),c);
         place(level,o.above(4),Blocks.GOLD_BLOCK.defaultBlockState(),c);
         return new BuildResult(boss.name()+" Memorial Arena",o,c.n);
+    }
+
+    private static void shopStall(ServerLevel l, BlockPos o, Counter c, String id) {
+        Block floor = switch (id) {
+            case "curio_shop" -> Blocks.GOLD_BLOCK;
+            case "spark_shop" -> Blocks.POLISHED_ANDESITE;
+            case "pottery_shop" -> Blocks.TERRACOTTA;
+            case "spirit_shop" -> Blocks.AMETHYST_BLOCK;
+            default -> Blocks.OAK_PLANKS;
+        };
+        Block awning = switch (id) {
+            case "curio_shop" -> Blocks.PURPLE_WOOL;
+            case "spark_shop" -> Blocks.YELLOW_WOOL;
+            case "pottery_shop" -> Blocks.ORANGE_WOOL;
+            case "spirit_shop" -> Blocks.CYAN_WOOL;
+            default -> Blocks.RED_WOOL;
+        };
+        disk(l, o, 5, floor, c);
+        for (int[] corner : new int[][]{{-4,-4},{4,-4},{-4,4},{4,4}}) {
+            pillar(l, o.offset(corner[0], 1, corner[1]), 4,
+                    Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG, c);
+        }
+        for (int x = -4; x <= 4; x++) {
+            place(l, o.offset(x, 5, -4), awning.defaultBlockState(), c);
+            place(l, o.offset(x, 5, 4), awning.defaultBlockState(), c);
+        }
+        for (int z = -3; z <= 3; z++) {
+            place(l, o.offset(-4, 5, z), awning.defaultBlockState(), c);
+            place(l, o.offset(4, 5, z), awning.defaultBlockState(), c);
+        }
+        for (int x = -3; x <= 3; x++) {
+            place(l, o.offset(x, 1, -2), Blocks.SPRUCE_SLAB.defaultBlockState(), c);
+        }
+        place(l, o.offset(-3, 1, 1), Blocks.BARREL.defaultBlockState(), c);
+        place(l, o.offset(3, 1, 1), Blocks.BARREL.defaultBlockState(), c);
+        place(l, o.offset(-2, 1, 3), Blocks.DECORATED_POT.defaultBlockState(), c);
+        place(l, o.offset(2, 1, 3), Blocks.DECORATED_POT.defaultBlockState(), c);
+        place(l, o.offset(-3, 4, -3), Blocks.LANTERN.defaultBlockState(), c);
+        place(l, o.offset(3, 4, -3), Blocks.LANTERN.defaultBlockState(), c);
+        place(l, o.offset(0, 1, -4), Blocks.CRAFTING_TABLE.defaultBlockState(), c);
+    }
+
+    private static void spawnShopkeeper(ServerLevel level, BlockPos origin, String id) {
+        String name = switch (id) {
+            case "blacksmith" -> "Mason the Blacksmith";
+            case "curio_shop" -> "Mina the Curio Keeper";
+            case "spark_shop" -> "Pavo the Lamplighter";
+            case "pottery_shop" -> "Rollo the Potter";
+            case "spirit_shop" -> "Neri the Spirit Trader";
+            default -> "Toto the Clock Town Merchant";
+        };
+        var villager = EntityType.VILLAGER.spawn(level, origin.offset(0, 1, 2), EntitySpawnReason.COMMAND);
+        if (villager != null) {
+            villager.setCustomName(net.minecraft.network.chat.Component.literal(name));
+            villager.setCustomNameVisible(true);
+            villager.setInvulnerable(true);
+            villager.setNoAi(true);
+        }
+    }
+
+    private static void spiritSite(ServerLevel l, BlockPos o, Counter c, String id) {
+        Block base = id.equals("spirit_grove") ? Blocks.MOSS_BLOCK : Blocks.PRISMARINE_BRICKS;
+        Block crystal = id.equals("spirit_grove") ? Blocks.AMETHYST_BLOCK : Blocks.SEA_LANTERN;
+        disk(l, o, 6, base, c);
+        for (int i = 0; i < 6; i++) {
+            double angle = Math.PI * 2.0 * i / 6.0;
+            int x = (int) Math.round(Math.cos(angle) * 4);
+            int z = (int) Math.round(Math.sin(angle) * 4);
+            pillar(l, o.offset(x, 1, z), 2, crystal, Blocks.AMETHYST_BLOCK, c);
+        }
+        place(l, o.above(), Blocks.WATER.defaultBlockState(), c);
+        place(l, o.above(2), Blocks.AMETHYST_BLOCK.defaultBlockState(), c);
+        place(l, o.above(3), Blocks.SOUL_LANTERN.defaultBlockState(), c);
+    }
+
+    private static void heartSite(ServerLevel l, BlockPos o, Counter c, String id) {
+        Block base = id.equals("heart_grove") ? Blocks.MOSSY_STONE_BRICKS : Blocks.DEEPSLATE_BRICKS;
+        disk(l, o, 7, base, c);
+        for (int[] corner : new int[][]{{-4,-4},{4,-4},{-4,4},{4,4}}) {
+            pillar(l, o.offset(corner[0], 1, corner[1]), 4,
+                    Blocks.POLISHED_DIORITE, Blocks.AMETHYST_BLOCK, c);
+        }
+        for (int x = -2; x <= 2; x++) {
+            place(l, o.offset(x, 1, 0), Blocks.PINK_TERRACOTTA.defaultBlockState(), c);
+        }
+        place(l, o.offset(0, 2, 0), Blocks.AMETHYST_BLOCK.defaultBlockState(), c);
+        place(l, o.offset(0, 3, 0), Blocks.SEA_LANTERN.defaultBlockState(), c);
     }
 
     private static void blacksmith(ServerLevel l, BlockPos o, Counter c) {

@@ -33,7 +33,7 @@ public final class MajorasBlockClient implements ClientModInitializer {
     private static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(
             Identifier.fromNamespaceAndPath("majorasblock", "controls"));
 
-    private static final KeyMapping FOCUS_KEY = KeyBindingHelper.registerKeyMapping(
+    private static final KeyMapping FOCUS_KEY = KeyMappingHelper.registerKeyMapping(
             new KeyMapping(
                     "key.majorasblock.focus",
                     InputConstants.Type.KEYSYM,

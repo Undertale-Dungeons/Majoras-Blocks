@@ -19,7 +19,7 @@
     "minecraft": "26.2",
     "java": ">=25",
     "fabric-api": "*",
-    "fabric-key-binding-api-v1": "*",
+    "fabric-key-mapping-api-v1": "*",
     "fabric-rendering-v1": "*"
   }
 }

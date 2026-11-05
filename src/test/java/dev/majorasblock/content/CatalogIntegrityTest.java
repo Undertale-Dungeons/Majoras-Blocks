@@ -11,7 +11,7 @@ class CatalogIntegrityTest {
     }
 
     @Test
-    void originalBossCountIsExactlyFive() {
-        assertEquals(5, BossCatalog.original().size());
+    void originalBossCountIsExactlySix() {
+        assertEquals(6, BossCatalog.original().size());
     }
 }

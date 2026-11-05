@@ -53,7 +53,7 @@ public final class PersistentRewardStore {
                 DATA.store(output, "Majora's Block one-time treasure and boss rewards");
             }
         } catch (IOException exception) {
-            server.getLogger().error("Could not save Majora's Block reward history.", exception);
+            MajorasBlock.LOGGER.error("Could not save Majora's Block reward history.", exception);
         }
     }
 

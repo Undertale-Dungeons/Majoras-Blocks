@@ -34,6 +34,7 @@ public final class AdventureGuideCommands {
                         + "/majorasblock moon travel|return\n"
                         + "/majorasblock form status|clear\n"
                         + "/majorasblock progress\n"
+                        + "/majorasblock flip front|back|left|right\n"
                         + "/majorasblock cycle\n"
                         + "/majorasblock spirit claim <id> (near a built Deity Fountain)\n"
                         + "Admin: /majorasblock dungeon build <id>, /majorasblock landmark build <id>, "

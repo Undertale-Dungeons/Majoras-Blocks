@@ -79,5 +79,11 @@
   "item.majorasblock.spirit_of_wind_charm": "Spirit Charm of Wind",
   "item.majorasblock.spirit_of_stillness_charm": "Spirit Charm of Stillness",
   "item.majorasblock.ocarina": "Ocarina",
-  "itemGroup.majorasblock": "Majora's Block"
+  "itemGroup.majorasblock": "Majora's Block",
+  "item.majorasblock.moonlit_buckler": "Moonlit Buckler",
+  "item.majorasblock.reefguard_ward": "Reefguard Ward",
+  "item.majorasblock.rootbound_vest": "Rootbound Vest",
+  "item.majorasblock.stargazer_cloak": "Stargazer Cloak",
+  "item.majorasblock.quietstep_boots": "Quietstep Boots",
+  "item.majorasblock.springheel_gloves": "Springheel Gloves"
 }

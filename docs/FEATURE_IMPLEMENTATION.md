@@ -2,7 +2,11 @@
 
 ## Collections and equipment
 
-The current registries expose 54 masks, 14 relics, eight Deity Spirit charms, the Ocarina, and the Clockwork Hourglass in the Majora's Block Creative tab. Mask and relic catalogues have crafting recipes. Mask/relic use grants temporary exploration effects. Deku, Goron, and Zora form masks also set a session form state whose effects are refreshed while active; no custom player model swap is present yet.
+The current registries expose 54 masks, 20 relics, eight Deity Spirit charms, the Ocarina, and the Clockwork Hourglass in the Majora's Block Creative tab. Mask and relic catalogues have crafting recipes. Mask/relic use grants temporary exploration effects. Deku, Goron, and Zora form masks also set a session form state whose effects are refreshed while active; no custom player model swap is present yet.
+
+Six added defensive/traversal relics are Moonlit Buckler, Reefguard Ward, Rootbound Vest, Stargazer Cloak, Quietstep Boots, and Springheel Gloves. They provide temporary protection or exploration effects when used and are not equipment-slot armour.
+
+Directional front, back, and side flip movement bursts are available through `/majorasblock flip`. They have a cooldown and are independent of target lock and combat.
 
 ## RPG and spirit progression
 

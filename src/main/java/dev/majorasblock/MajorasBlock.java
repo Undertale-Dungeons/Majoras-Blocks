@@ -5,6 +5,7 @@ import dev.majorasblock.commands.AdventureGuideCommands;
 import dev.majorasblock.commands.CollectionCommands;
 import dev.majorasblock.commands.WorldContentCommands;
 import dev.majorasblock.commands.AdventureSystemsCommands;
+import dev.majorasblock.commands.FlipCommands;
 import dev.majorasblock.player.FormRuntime;
 import dev.majorasblock.time.ThreeDayCycleRuntime;
 import dev.majorasblock.content.DungeonCatalog;
@@ -38,6 +39,7 @@ public final class MajorasBlock implements ModInitializer {
         CollectionCommands.register();
         WorldContentCommands.register();
         AdventureSystemsCommands.register();
+        FlipCommands.register();
 
         LOGGER.info("Majora's Block initialized: {} masks, {} relics, {} dungeons, {} bosses, {} enemy concepts, {} ambient creatures, {} songs, {} spirits",
                 dev.majorasblock.content.MaskCatalog.all().size(),

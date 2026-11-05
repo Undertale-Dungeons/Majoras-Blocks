@@ -21,7 +21,7 @@ class AdventureCollectionCatalogTest {
 
     @Test
     void relicsAndAmbientCreaturesHaveUniqueEntries() {
-        assertTrue(RelicCatalog.all().size() >= 10);
+        assertTrue(RelicCatalog.all().size() >= 20);
         assertTrue(WanderingCreatureCatalog.all().size() >= 20);
         assertEquals(RelicCatalog.all().size(),
                 new HashSet<>(RelicCatalog.all().stream().map(RelicCatalog.Relic::id).toList()).size());

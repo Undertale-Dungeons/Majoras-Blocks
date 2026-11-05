@@ -13,12 +13,12 @@ A fan-made Minecraft Java adventure mod inspired by the atmosphere, world, masks
 ## Content in the project
 
 - **54 masks**, including Deku, Goron, and Zora form masks, Sponge Mask, Peabert Mask, and dozens of exploration masks.
-- **14 relics and travel items**, plus eight Deity Spirit charms, the Ocarina, and the Clockwork Hourglass.
+- **20 relics and travel items**, plus eight Deity Spirit charms, the Ocarina, and the Clockwork Hourglass.
 - **9 dungeons**: the four returning temple concepts and five original dungeons.
 - **9 boss concepts**, with themed memorial arenas for each.
 - **24 enemy concepts** and **24 friendly wandering-creature concepts**.
 - **6 buildable landmarks**, including the Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.
-- Five original ocarina melodies, a three-day clock, DROWNED atmosphere mode, friendship travel, and session-based adventure progression.
+- Six new defensive/traversal gear pieces and directional front, back, and side flip mobility; five original ocarina melodies, a three-day clock, DROWNED atmosphere mode, friendship travel, and session-based adventure progression.
 
 The catalogues and item collections are in the build. Some encounter and visual content is still prototype-level; see the honest implementation status below.
 
@@ -49,6 +49,7 @@ Player commands:
 - `/majorasblock mask list` and `/majorasblock mask grant <id>`
 - `/majorasblock relic list` and `/majorasblock relic grant <id>`
 - `/majorasblock form status|clear`
+- `/majorasblock flip front|back|left|right`
 - `/majorasblock progress`
 - `/majorasblock spirit list` and `/majorasblock spirit claim <id>`
 - `/majorasblock creature list|summon <id>`
@@ -71,6 +72,8 @@ Operator commands:
 Open the [GitHub Actions page](https://github.com/Undertale-Dungeons/Majoras-Blocks/actions), choose the latest successful **Build** run, and download the **majoras-block** artifact. Extract it and place the playable JAR in the Minecraft 26.2 Fabric `mods` folder. Install Fabric Loader and the matching Fabric API first.
 
 The build workflow uploads only the playable mod JAR, not the developer sources JAR.
+
+Flip moves are directional movement bursts with a cooldown. They do not include Z-targeting, attack lock, or combat actions.
 
 ## Still in development
 

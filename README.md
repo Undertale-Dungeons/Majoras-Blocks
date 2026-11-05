@@ -17,7 +17,7 @@ A fan-made Minecraft Java adventure mod inspired by the atmosphere, world, masks
 - **9 dungeons**: the four returning temple concepts and five original dungeons.
 - **9 boss concepts**, with themed memorial arenas for each.
 - **24 enemy concepts** and **24 friendly wandering-creature concepts**.
-- **6 buildable landmarks**, including the Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.
+- **7 buildable landmarks**, including the Blacksmith Forge, Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.
 - Six new defensive/traversal gear pieces, directional front/back/side flip mobility, a client-side focus camera, five original ocarina melodies, a three-day clock, DROWNED atmosphere mode, friendship travel, and session-based adventure progression.
 
 The catalogues and item collections are in the build. Some encounter and visual content is still prototype-level; see the honest implementation status below.
@@ -41,6 +41,8 @@ The catalogues and item collections are in the build. Some encounter and visual 
 **Z-target focus.** Press **R** (rebindable in Options > Controls) to focus a visible living entity within 64 blocks. Focus can be started at any time, including when the target is not directly in front of you. Press **V** to cycle through visible targets and R again to release. The camera turns smoothly toward the selected target and the HUD shows its name and distance. This is a focus and movement feature, not an attack or damage system.
 
 **Cliff hanging.** Hold crouch while airborne and pressing against a wall to catch a ledge. Jump while still holding crouch to vault up and forward; release crouch to let go. This is a server-side traversal mechanic for multiplayer.
+
+**Rupees and blacksmith.** Rupees are an inventory currency. Build the forge with `/majorasblock landmark build blacksmith`. At the forge, order with `/majorasblock smith order hero|deku|goron|zora`. Each order costs 100 rupees and takes one in-game day. Use `/majorasblock smith status` to check the timer and `/majorasblock smith collect` when ready. Deku, Goron, and Zora heirlooms require the matching form. The four sword heirlooms are display collectibles only, not usable weapons. Operators can grant test currency with `/majorasblock rupees grant <amount>`; players can check `/majorasblock rupees balance`. Orders are session-only.
 
 **Multiplayer.** Friendship arrivals require the destination player to opt in. The current multiplayer work is limited and still needs live server testing.
 

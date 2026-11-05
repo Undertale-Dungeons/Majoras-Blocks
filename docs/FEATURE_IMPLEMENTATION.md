@@ -12,6 +12,10 @@ Directional front, back, and side flip movement bursts are available through `/m
 
 The client initializer registers a configurable focus key (default R). It selects the best-aligned visible living entity within 16 blocks, smoothly turns the player's view toward that entity, and displays its name and distance on the HUD. Focus is client-only and releases when the entity becomes invalid, leaves range, or is no longer visible. It does not send attack actions, apply damage, or implement weapon handling.
 
+## Rupees and blacksmith
+
+Rupees are registered as a stackable inventory currency. Players can check their wallet with `/majorasblock rupees balance`; operators can grant test currency with `/majorasblock rupees grant <amount>`. The Blacksmith Forge is a buildable landmark. A player at the forge can order one heirloom for 100 rupees. The Hero's Sword is available without a form requirement; the Deku, Goron, and Zora heirlooms require the matching active form. Orders take 24,000 adventure-clock ticks (one in-game day) and can be collected at the forge with `/majorasblock smith collect`. Orders are session-only. The heirlooms are collectible/display items with no attack or damage behavior.
+
 ## RPG and spirit progression
 
 Using masks and relics awards session XP. Spirit charms award XP and effects. The eight Deity Spirits can be claimed near a Deity Fountain built with the landmark command; each player may claim each spirit once per server session. Level rewards and spirit blessings are effects-based. Progression is not persistently saved yet.

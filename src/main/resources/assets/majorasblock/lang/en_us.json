@@ -88,5 +88,10 @@
   "item.majorasblock.springheel_gloves": "Springheel Gloves",
   "key.category.majorasblock.controls": "Majora's Block",
   "key.majorasblock.focus": "Toggle Z-Target Focus",
-  "key.majorasblock.focus_next": "Cycle Z-Target"
+  "key.majorasblock.focus_next": "Cycle Z-Target",
+  "item.majorasblock.rupee": "Rupee",
+  "item.majorasblock.hero_sword": "Hero's Sword",
+  "item.majorasblock.deku_sword": "Deku Sword",
+  "item.majorasblock.goron_sword": "Goron Sword",
+  "item.majorasblock.zora_sword": "Zora Sword"
 }

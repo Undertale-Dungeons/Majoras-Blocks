@@ -26,6 +26,11 @@ import java.util.Map;
 public final class ModItems {
     public static final Item OCARINA = registerOcarina();
     public static final Item CLOCKWORK_HOURGLASS = registerHourglass();
+    public static final Item RUPEE = registerSimpleItem("rupee", 64);
+    public static final Item HERO_SWORD = registerSimpleItem("hero_sword", 1);
+    public static final Item DEKU_SWORD = registerSimpleItem("deku_sword", 1);
+    public static final Item GORON_SWORD = registerSimpleItem("goron_sword", 1);
+    public static final Item ZORA_SWORD = registerSimpleItem("zora_sword", 1);
 
     public static final Item SPIRIT_OF_MOTION = registerSpiritCharm("spirit_of_motion_charm", MobEffects.SPEED);
     public static final Item SPIRIT_OF_MOONLIGHT = registerSpiritCharm("spirit_of_moonlight_charm", MobEffects.RESISTANCE);
@@ -50,6 +55,11 @@ public final class ModItems {
             .displayItems((parameters, output) -> {
                 output.accept(OCARINA);
                 output.accept(CLOCKWORK_HOURGLASS);
+                output.accept(RUPEE);
+                output.accept(HERO_SWORD);
+                output.accept(DEKU_SWORD);
+                output.accept(GORON_SWORD);
+                output.accept(ZORA_SWORD);
                 output.accept(SPIRIT_OF_MOTION);
                 output.accept(SPIRIT_OF_MOONLIGHT);
                 output.accept(SPIRIT_OF_TIDES);
@@ -64,6 +74,12 @@ public final class ModItems {
             .build();
 
     private ModItems() {}
+
+    private static Item registerSimpleItem(String id, int maxCount) {
+        ResourceKey<Item> key = itemKey(id);
+        return Registry.register(BuiltInRegistries.ITEM, key,
+                new Item(new Item.Properties().stacksTo(maxCount).setId(key)));
+    }
 
     private static Item registerOcarina() {
         ResourceKey<Item> key = itemKey("ocarina");
@@ -113,7 +129,7 @@ public final class ModItems {
     public static void register() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, CREATIVE_TAB_KEY, CREATIVE_TAB);
         MajorasBlock.LOGGER.info(
-                "Registered {} masks, {} relics, eight spirit charms, the Ocarina, and the Clockwork Hourglass",
+                "Registered {} masks, {} relics, eight spirit charms, rupees, four heirloom collectibles, the Ocarina, and the Clockwork Hourglass",
                 MASK_ITEMS.size(), RELIC_ITEMS.size()
         );
     }

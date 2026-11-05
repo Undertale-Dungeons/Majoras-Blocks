@@ -19,9 +19,10 @@ public final class LandmarkBuilder {
     public record BuildResult(String name, BlockPos origin, int blocksPlaced) {}
     private record Palette(Block floor, Block wall, Block trim, Block light) {}
     private static final Map<ResourceKey<Level>, Set<BlockPos>> DEITY_FOUNTAINS = new ConcurrentHashMap<>();
+    private static final Map<ResourceKey<Level>, Set<BlockPos>> BLACKSMITHS = new ConcurrentHashMap<>();
     private static final Map<String,String> LANDMARKS=Map.of(
         "deity_fountain","Deity Fountain","moon_gate","Moon Gate","clock_tower","Clock Town Clock Tower",
-        "peabert_grove","Peabert Grove","sponge_grotto","Sponge Grotto","starfall_observatory","Starfall Observatory"
+        "peabert_grove","Peabert Grove","sponge_grotto","Sponge Grotto","starfall_observatory","Starfall Observatory","blacksmith","Blacksmith Forge"
     );
     private LandmarkBuilder() {}
     public static List<String> ids(){return LANDMARKS.keySet().stream().sorted().toList();}
@@ -37,10 +38,15 @@ public final class LandmarkBuilder {
             case "peabert_grove" -> grove(level,o,c);
             case "sponge_grotto" -> grotto(level,o,c);
             case "starfall_observatory" -> observatory(level,o,c);
+            case "blacksmith" -> blacksmith(level,o,c);
             default -> throw new IllegalStateException("Missing landmark builder: "+id);
         }
         if (id.equals("deity_fountain")) {
             DEITY_FOUNTAINS.computeIfAbsent(level.dimension(), ignored -> ConcurrentHashMap.newKeySet())
+                    .add(o.immutable());
+        }
+        if (id.equals("blacksmith")) {
+            BLACKSMITHS.computeIfAbsent(level.dimension(), ignored -> ConcurrentHashMap.newKeySet())
                     .add(o.immutable());
         }
         return new BuildResult(name,o,c.n);
@@ -52,6 +58,20 @@ public final class LandmarkBuilder {
         if (fountains == null) return false;
         long limit = (long) radius * radius;
         for (BlockPos center : fountains) {
+            long dx = position.getX() - center.getX();
+            long dy = position.getY() - center.getY();
+            long dz = position.getZ() - center.getZ();
+            if (dx * dx + dy * dy + dz * dz <= limit) return true;
+        }
+        return false;
+    }
+
+    public static boolean isNearBlacksmith(ServerLevel level, BlockPos position, int radius) {
+        if (level == null || position == null || radius < 0) return false;
+        Set<BlockPos> forges = BLACKSMITHS.get(level.dimension());
+        if (forges == null) return false;
+        long limit = (long) radius * radius;
+        for (BlockPos center : forges) {
             long dx = position.getX() - center.getX();
             long dy = position.getY() - center.getY();
             long dz = position.getZ() - center.getZ();
@@ -72,6 +92,41 @@ public final class LandmarkBuilder {
         place(level,o.above(3),p.light().defaultBlockState(),c);
         place(level,o.above(4),Blocks.GOLD_BLOCK.defaultBlockState(),c);
         return new BuildResult(boss.name()+" Memorial Arena",o,c.n);
+    }
+
+    private static void blacksmith(ServerLevel l, BlockPos o, Counter c) {
+        disk(l, o, 7, Blocks.STONE_BRICKS, c);
+        for (int x = -6; x <= 6; x++) {
+            place(l, o.offset(x, 1, -6), Blocks.STONE_BRICKS.defaultBlockState(), c);
+            place(l, o.offset(x, 1, 6), Blocks.STONE_BRICKS.defaultBlockState(), c);
+        }
+        for (int z = -5; z <= 5; z++) {
+            place(l, o.offset(-6, 1, z), Blocks.STONE_BRICKS.defaultBlockState(), c);
+            place(l, o.offset(6, 1, z), Blocks.STONE_BRICKS.defaultBlockState(), c);
+        }
+        for (int[] corner : new int[][]{{-6,-6},{6,-6},{-6,6},{6,6}}) {
+            pillar(l, o.offset(corner[0], 1, corner[1]), 5,
+                    Blocks.POLISHED_ANDESITE, Blocks.COPPER_BLOCK, c);
+        }
+        for (int x = -5; x <= 5; x++) {
+            place(l, o.offset(x, 6, -6), Blocks.SPRUCE_PLANKS.defaultBlockState(), c);
+            place(l, o.offset(x, 6, 6), Blocks.SPRUCE_PLANKS.defaultBlockState(), c);
+        }
+        for (int z = -5; z <= 5; z++) {
+            place(l, o.offset(-6, 6, z), Blocks.SPRUCE_PLANKS.defaultBlockState(), c);
+            place(l, o.offset(6, 6, z), Blocks.SPRUCE_PLANKS.defaultBlockState(), c);
+        }
+        place(l, o.offset(0, 1, -4), Blocks.BLAST_FURNACE.defaultBlockState(), c);
+        place(l, o.offset(-2, 1, -4), Blocks.ANVIL.defaultBlockState(), c);
+        place(l, o.offset(2, 1, -4), Blocks.SMITHING_TABLE.defaultBlockState(), c);
+        place(l, o.offset(0, 1, 2), Blocks.CAMPFIRE.defaultBlockState(), c);
+        place(l, o.offset(0, 2, 2), Blocks.CHAIN.defaultBlockState(), c);
+        place(l, o.offset(0, 3, 2), Blocks.CAMPFIRE.defaultBlockState(), c);
+        place(l, o.offset(-4, 1, 0), Blocks.BARREL.defaultBlockState(), c);
+        place(l, o.offset(4, 1, 0), Blocks.BARREL.defaultBlockState(), c);
+        place(l, o.offset(-3, 1, -2), Blocks.LANTERN.defaultBlockState(), c);
+        place(l, o.offset(3, 1, -2), Blocks.LANTERN.defaultBlockState(), c);
+        place(l, o.offset(0, 6, 0), Blocks.COPPER_BLOCK.defaultBlockState(), c);
     }
 
     private static void fountain(ServerLevel l,BlockPos o,Counter c){

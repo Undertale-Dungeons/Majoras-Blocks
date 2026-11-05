@@ -17,58 +17,44 @@ public final class CatalogIntegrity {
         requireUnique("song", SongCatalog.all().stream().map(SongCatalog.Song::id).toList());
         requireUnique("spirit", DeitySpiritCatalog.all().stream().map(DeitySpiritCatalog.Spirit::id).toList());
         requireUnique("music theme", OriginalMusicCatalog.all().stream().map(OriginalMusicCatalog.Theme::id).toList());
+        requireUnique("mask", MaskCatalog.all().stream().map(MaskCatalog.Mask::id).toList());
+        requireUnique("relic", RelicCatalog.all().stream().map(RelicCatalog.Relic::id).toList());
+        requireUnique("ambient creature", WanderingCreatureCatalog.all().stream().map(WanderingCreatureCatalog.Creature::id).toList());
 
-        if (DungeonCatalog.legacy().size() != 4 || DungeonCatalog.original().size() != 5
-                || DungeonCatalog.all().size() != 9) {
+        if (DungeonCatalog.legacy().size()!=4 || DungeonCatalog.original().size()!=5 || DungeonCatalog.all().size()!=9)
             throw new IllegalStateException("Expected four returning and five original dungeons.");
-        }
-        if (BossCatalog.original().size() != 5 || BossCatalog.all().size() != 9) {
+        if (BossCatalog.original().size()!=5 || BossCatalog.all().size()!=9)
             throw new IllegalStateException("Expected four returning and five original bosses.");
-        }
+        if (MaskCatalog.all().size()<50) throw new IllegalStateException("The mask collection must contain at least 50 masks.");
+        if (RelicCatalog.all().size()<10) throw new IllegalStateException("The adventure equipment catalogue is incomplete.");
+        if (WanderingCreatureCatalog.all().size()<20) throw new IllegalStateException("The ambient creature catalogue is incomplete.");
 
-        for (DungeonCatalog.Dungeon dungeon : DungeonCatalog.all()) {
-            BossCatalog.Boss boss = BossCatalog.byId(dungeon.bossId()).orElse(null);
-            if (boss == null || !boss.dungeonId().equals(dungeon.id())) {
-                throw new IllegalStateException("Dungeon-to-boss link is invalid: " + dungeon.id());
-            }
+        for (DungeonCatalog.Dungeon dungeon:DungeonCatalog.all()) {
+            BossCatalog.Boss boss=BossCatalog.byId(dungeon.bossId()).orElse(null);
+            if(boss==null||!boss.dungeonId().equals(dungeon.id()))
+                throw new IllegalStateException("Dungeon-to-boss link is invalid: "+dungeon.id());
         }
-        for (BossCatalog.Boss boss : BossCatalog.all()) {
-            if (DungeonCatalog.byId(boss.dungeonId()) == null) {
-                throw new IllegalStateException("Boss references missing dungeon: " + boss.id());
-            }
-        }
-        if (EnemyPrototypeService.prototypeCount() != EnemyCatalog.all().size()) {
+        for(BossCatalog.Boss boss:BossCatalog.all())
+            if(DungeonCatalog.byId(boss.dungeonId())==null)
+                throw new IllegalStateException("Boss references missing dungeon: "+boss.id());
+        if(EnemyPrototypeService.prototypeCount()!=EnemyCatalog.all().size())
             throw new IllegalStateException("Every catalogued enemy must have a prototype spawn mapping.");
+        for(EnemyCatalog.Enemy enemy:EnemyCatalog.all())
+            if(enemy.health()<=0||enemy.movementSpeed()<=0||enemy.movementSpeed()>1)
+                throw new IllegalStateException("Invalid enemy tuning: "+enemy.id());
+        for(OriginalMusicCatalog.Theme theme:OriginalMusicCatalog.all()){
+            if(theme.tempoBpm()<=0||theme.notes().isEmpty())
+                throw new IllegalStateException("Empty or invalid music theme: "+theme.id());
+            for(OriginalMusicCatalog.Note note:theme.notes())
+                if(note.midiPitch()<0||note.midiPitch()>127||note.beats()<=0)
+                    throw new IllegalStateException("Invalid note in theme: "+theme.id());
         }
-        for (EnemyCatalog.Enemy enemy : EnemyCatalog.all()) {
-            if (enemy.health() <= 0 || enemy.movementSpeed() <= 0 || enemy.movementSpeed() > 1) {
-                throw new IllegalStateException("Invalid enemy tuning: " + enemy.id());
-            }
-        }
-        for (OriginalMusicCatalog.Theme theme : OriginalMusicCatalog.all()) {
-            if (theme.tempoBpm() <= 0 || theme.notes().isEmpty()) {
-                throw new IllegalStateException("Empty or invalid music theme: " + theme.id());
-            }
-            for (OriginalMusicCatalog.Note note : theme.notes()) {
-                if (note.midiPitch() < 0 || note.midiPitch() > 127 || note.beats() <= 0) {
-                    throw new IllegalStateException("Invalid note in theme: " + theme.id());
-                }
-            }
-        }
-        if (DeitySpiritCatalog.all().size() != 8) {
-            throw new IllegalStateException("Expected eight deity spirits.");
-        }
+        if(DeitySpiritCatalog.all().size()!=8) throw new IllegalStateException("Expected eight deity spirits.");
     }
 
-    private static void requireUnique(String kind, List<String> ids) {
-        Set<String> unique = new HashSet<>(ids);
-        if (unique.size() != ids.size()) {
-            throw new IllegalStateException("Duplicate " + kind + " id in content catalogue.");
-        }
-        for (String id : ids) {
-            if (id == null || id.isBlank()) {
-                throw new IllegalStateException("Blank " + kind + " id in content catalogue.");
-            }
-        }
+    private static void requireUnique(String kind,List<String> ids){
+        Set<String> unique=new HashSet<>(ids);
+        if(unique.size()!=ids.size()) throw new IllegalStateException("Duplicate "+kind+" id in content catalogue.");
+        for(String id:ids) if(id==null||id.isBlank()) throw new IllegalStateException("Blank "+kind+" id in content catalogue.");
     }
 }

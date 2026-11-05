@@ -2,6 +2,8 @@ package dev.majorasblock;
 
 import dev.majorasblock.commands.AdventureCommands;
 import dev.majorasblock.commands.AdventureGuideCommands;
+import dev.majorasblock.commands.CollectionCommands;
+import dev.majorasblock.commands.WorldContentCommands;
 import dev.majorasblock.content.DungeonCatalog;
 import dev.majorasblock.content.CatalogIntegrity;
 import dev.majorasblock.content.EnemyCatalog;
@@ -15,7 +17,6 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Main entrypoint for Majora's Block. */
 public final class MajorasBlock implements ModInitializer {
     public static final String MOD_ID = "majorasblock";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -29,14 +30,17 @@ public final class MajorasBlock implements ModInitializer {
         DrownedRuntime.register();
         AdventureCommands.register();
         AdventureGuideCommands.register();
+        CollectionCommands.register();
+        WorldContentCommands.register();
 
-        LOGGER.info(
-                "Majora's Block {} initialised: {} dungeons, {} original enemy types, {} songs, {} deity spirits catalogued",
-                MOD_ID,
+        LOGGER.info("Majora's Block initialized: {} masks, {} relics, {} dungeons, {} bosses, {} enemy concepts, {} ambient creatures, {} songs, {} spirits",
+                dev.majorasblock.content.MaskCatalog.all().size(),
+                dev.majorasblock.content.RelicCatalog.all().size(),
                 DungeonCatalog.all().size(),
+                dev.majorasblock.content.BossCatalog.all().size(),
                 EnemyCatalog.all().size(),
+                dev.majorasblock.content.WanderingCreatureCatalog.all().size(),
                 SongCatalog.all().size(),
-                DeitySpiritCatalog.all().size()
-        );
+                DeitySpiritCatalog.all().size());
     }
 }

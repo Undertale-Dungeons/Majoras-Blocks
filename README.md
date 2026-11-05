@@ -15,7 +15,7 @@ A fan-made Minecraft Java adventure mod inspired by the atmosphere, world, masks
 - **54 masks**, including Deku, Goron, and Zora form masks, Sponge Mask, Peabert Mask, and dozens of exploration masks.
 - **20 relics and travel items**, plus eight Deity Spirit charms, the Ocarina, and the Clockwork Hourglass.
 - **9 dungeons**: the four returning temple concepts and five original dungeons.
-- **9 boss concepts**, with themed memorial arenas for each.
+- **10 boss concepts**, including the Black Knight as the trial immediately before Majora, with themed memorial arenas for each.
 - **24 enemy concepts** and **24 friendly wandering-creature concepts**.
 - **16 buildable landmarks**, including the Blacksmith Forge, five Clock Town shops, spirit and heart shrines, Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.
 - Six new defensive/traversal gear pieces, directional front/back/side flip mobility, a client-side focus camera, five original ocarina melodies, a three-day clock, DROWNED atmosphere mode, friendship travel, and session-based adventure progression.
@@ -45,6 +45,8 @@ The catalogues and item collections are in the build. Some encounter and visual 
 **Rupees and blacksmith.** Rupees are an inventory currency. Build the forge with `/majorasblock landmark build blacksmith`. At the forge, order with `/majorasblock smith order hero|deku|goron|zora`. Each order costs 100 rupees and takes one in-game day. Use `/majorasblock smith status` to check the timer and `/majorasblock smith collect` when ready. Deku, Goron, and Zora heirlooms require the matching form. The Razor Sword upgrade costs another 100 rupees plus the Hero's Sword and a Deku Photograph. It has 100 ceremonial uses; right-click spends one and at zero it returns to the Hero's Sword. The Gilded Sword costs 100 rupees plus a Razor Sword, Golden Dust and an Odolwa Portrait. These are progression/display collectibles, not damaging weapons. Operators can grant test currency with `/majorasblock rupees grant <amount>`; players can check `/majorasblock rupees balance`. Orders are session-only.
 
 **Clock Town shops.** Build `clocktown_market`, `curio_shop`, `spark_shop`, `pottery_shop` and `spirit_shop` as separate stalls using `/majorasblock landmark build <id>`. Each spawns a named villager. Use `/majorasblock shop list` and `/majorasblock shop buy <item> [amount]` near the matching stall. The spark shop sells lighting and craft supplies rather than explosives.
+
+**Black Knight trial.** Build `black_knight_trial` for a black-and-white antlered statue court. The Knight is catalogued as the trial before Majora. Use `/majorasblock knight lore` to read Tatl's warnings, then `/majorasblock knight trial` and follow the star directions with `/majorasblock knight align north|east|west`. Completing the non-combat alignment trial awards a Black Knight Shard once per player session. Maces, axes, halberds and the shard are decorative collectibles only; they do not attack or change damage.
 
 **Pots and hidden treasures.** Breaking vanilla decorated pots can yield rupees, sticks, Deku Nuts, seeds, bread and rare Golden Dust or Spirit Shards. Build `spirit_grove` or `spirit_spring` and use `/majorasblock treasure claim <id>` for a Spirit Shard. Build `heart_grove` or `heart_cave` to find a Life Crystal. Each location is claimable once per player per world. After a boss victory, an operator can use `/majorasblock boss reward <boss_id>`; each boss reward is globally one-time per world, yielding one Life Crystal solo or two when multiple players are online. Bosses are still catalogue/prototype entries, so this is a manual post-victory trigger.
 
@@ -86,7 +88,7 @@ The build workflow uploads only the playable mod JAR, not the developer sources 
 ## Still in development
 
 - Original enemy entity types, models, AI, animations, and spawn rules. Current enemy spawns use vanilla entities as prototypes.
-- Original boss entities and encounter logic. Current bosses are design entries with buildable memorial arenas, not active boss fights.
+- Original boss entities and encounter logic. Current bosses, including the Black Knight, are design entries with buildable memorial arenas or trial set pieces, not active combat encounters. Weapon-shaped collectibles remain non-functional display items.
 - Complete puzzle dungeons. The current builders create themed test shells, rooms, corridors, and pedestals, not finished puzzle campaigns.
 - Custom player transformation models and animations.
 - A separate Moon dimension. The current Moon destination is a built area in the End.

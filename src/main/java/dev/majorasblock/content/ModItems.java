@@ -40,6 +40,10 @@ public final class ModItems {
     public static final Item DEKU_NUT = registerSimpleItem("deku_nut", 16);
     public static final Item LIFE_CRYSTAL = registerSimpleItem("life_crystal", 16);
     public static final Item SPIRIT_SHARD = registerSimpleItem("spirit_shard", 16);
+    public static final Item CEREMONIAL_MACE = registerSimpleItem("ceremonial_mace", 1);
+    public static final Item CEREMONIAL_AXE = registerSimpleItem("ceremonial_axe", 1);
+    public static final Item CEREMONIAL_HALBERD = registerSimpleItem("ceremonial_halberd", 1);
+    public static final Item BLACK_KNIGHT_SHARD = registerSimpleItem("black_knight_shard", 1);
 
     public static final Item SPIRIT_OF_MOTION = registerSpiritCharm("spirit_of_motion_charm", MobEffects.SPEED);
     public static final Item SPIRIT_OF_MOONLIGHT = registerSpiritCharm("spirit_of_moonlight_charm", MobEffects.RESISTANCE);
@@ -77,6 +81,10 @@ public final class ModItems {
                 output.accept(DEKU_NUT);
                 output.accept(LIFE_CRYSTAL);
                 output.accept(SPIRIT_SHARD);
+                output.accept(CEREMONIAL_MACE);
+                output.accept(CEREMONIAL_AXE);
+                output.accept(CEREMONIAL_HALBERD);
+                output.accept(BLACK_KNIGHT_SHARD);
                 output.accept(SPIRIT_OF_MOTION);
                 output.accept(SPIRIT_OF_MOONLIGHT);
                 output.accept(SPIRIT_OF_TIDES);

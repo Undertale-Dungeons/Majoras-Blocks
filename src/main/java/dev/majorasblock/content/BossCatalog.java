@@ -17,6 +17,10 @@ public final class BossCatalog {
                     "Alternate safe platforms and underwater routes", "Shortens safe windows"),
             new Boss("twinmold", "Twinmold", "stone_tower", "Inverted desert chamber",
                     "Switch between elevated and ground routes", "Both targets coordinate attacks"),
+            new Boss("black_knight", "The Black Knight", "black_knight_trial",
+                    "Antlered black-and-white star court",
+                    "Align the constellations to prove your worth before Majora",
+                    "The star pattern changes between trial stages"),
 
             new Boss("the_bloom_warden", "The Bloom Warden", "glassroot_catacombs",
                     "Crystal greenhouse", "Redirect light through root mirrors", "Crystal growth changes arena lanes"),

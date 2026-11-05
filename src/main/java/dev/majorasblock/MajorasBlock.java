@@ -8,6 +8,7 @@ import dev.majorasblock.commands.AdventureSystemsCommands;
 import dev.majorasblock.commands.FlipCommands;
 import dev.majorasblock.commands.EconomyCommands;
 import dev.majorasblock.commands.TownCommands;
+import dev.majorasblock.commands.BlackKnightTrialCommands;
 import dev.majorasblock.economy.PersistentRewardStore;
 import dev.majorasblock.economy.PotLootRuntime;
 import dev.majorasblock.player.FormRuntime;
@@ -48,6 +49,7 @@ public final class MajorasBlock implements ModInitializer {
         LedgeHangRuntime.register();
         EconomyCommands.register();
         TownCommands.register();
+        BlackKnightTrialCommands.register();
         PersistentRewardStore.register();
         PotLootRuntime.register();
 

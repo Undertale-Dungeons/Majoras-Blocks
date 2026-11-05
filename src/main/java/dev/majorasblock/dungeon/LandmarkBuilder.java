@@ -43,7 +43,8 @@ public final class LandmarkBuilder {
         Map.entry("spirit_grove","Spirit Grove"),
         Map.entry("spirit_spring","Spirit Spring"),
         Map.entry("heart_grove","Heart Piece Grove"),
-        Map.entry("heart_cave","Heart Crystal Cave")
+        Map.entry("heart_cave","Heart Crystal Cave"),
+        Map.entry("black_knight_trial","Black Knight Trial Court")
     );
     private LandmarkBuilder() {}
     public static List<String> ids(){return LANDMARKS.keySet().stream().sorted().toList();}
@@ -63,6 +64,7 @@ public final class LandmarkBuilder {
             case "clocktown_market", "curio_shop", "spark_shop", "pottery_shop", "spirit_shop" -> shopStall(level,o,c,id);
             case "spirit_grove", "spirit_spring" -> spiritSite(level,o,c,id);
             case "heart_grove", "heart_cave" -> heartSite(level,o,c,id);
+            case "black_knight_trial" -> blackKnightTrial(level,o,c);
             default -> throw new IllegalStateException("Missing landmark builder: "+id);
         }
         LANDMARK_POINTS.computeIfAbsent(level.dimension(), ignored -> new ConcurrentHashMap<>())
@@ -214,6 +216,66 @@ public final class LandmarkBuilder {
         place(l, o.above(), Blocks.WATER.defaultBlockState(), c);
         place(l, o.above(2), Blocks.AMETHYST_BLOCK.defaultBlockState(), c);
         place(l, o.above(3), Blocks.SOUL_LANTERN.defaultBlockState(), c);
+    }
+
+
+    private static void blackKnightTrial(ServerLevel l, BlockPos o, Counter c) {
+        disk(l, o, 10, Blocks.BLACK_CONCRETE, c);
+        for (int x = -10; x <= 10; x++) {
+            for (int z = -10; z <= 10; z++) {
+                int distance = x * x + z * z;
+                if (distance >= 85 && distance <= 108) {
+                    place(l, o.offset(x, 1, z), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+                }
+            }
+        }
+
+        // White-edged arch, with a dark opening.
+        for (int y = 1; y <= 8; y++) {
+            place(l, o.offset(-4, y, -5), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(4, y, -5), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        }
+        for (int x = -4; x <= 4; x++) {
+            place(l, o.offset(x, 8, -5), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        }
+        for (int x = -3; x <= 3; x++) {
+            place(l, o.offset(x, 1, -5), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+        }
+
+        // A block-built silhouette: white backing gives the black figure a sharp outline.
+        for (int y = 1; y <= 4; y++) {
+            place(l, o.offset(0, y, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        }
+        place(l, o.offset(-2, 2, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(2, 2, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(-1, 4, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(1, 4, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+
+        place(l, o.offset(0, 1, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(0, 2, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(-1, 2, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(1, 2, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(0, 3, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(0, 4, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+
+        // Antlers branch outward on both sides of the helmet.
+        for (int side : new int[]{-1, 1}) {
+            place(l, o.offset(side, 5, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 6, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side * 3, 6, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 7, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side, 5, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 6, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side * 3, 6, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 7, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        }
+
+        place(l, o.offset(0, 1, 0), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+        place(l, o.offset(0, 2, 0), Blocks.AMETHYST_BLOCK.defaultBlockState(), c);
+        place(l, o.offset(0, 3, 0), Blocks.END_ROD.defaultBlockState(), c);
+        for (int side : new int[]{-1, 1}) {
+            place(l, o.offset(side * 5, 1, 0), Blocks.SOUL_LANTERN.defaultBlockState(), c);
+        }
     }
 
     private static void heartSite(ServerLevel l, BlockPos o, Counter c, String id) {

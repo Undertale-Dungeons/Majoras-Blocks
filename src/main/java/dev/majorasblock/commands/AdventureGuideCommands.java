@@ -29,6 +29,8 @@ public final class AdventureGuideCommands {
                         + "/majorasblock relic list|grant <id>\n"
                         + "/majorasblock dungeon list\n"
                         + "/majorasblock boss list\n"
+                        + "/majorasblock knight lore|trial\n"
+                        + "/majorasblock knight align north|east|west\n"
                         + "/majorasblock spirit list\n"
                         + "/majorasblock creature list|summon <id>\n"
                         + "/majorasblock moon travel|return\n"

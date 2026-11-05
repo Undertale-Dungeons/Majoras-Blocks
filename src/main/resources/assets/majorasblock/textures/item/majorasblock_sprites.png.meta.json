@@ -1,0 +1,13 @@
+{
+  "description": "Original Majora's Block pixel-art sprite atlas. No Nintendo game sprites or game audio are included.",
+  "image": "majorasblock_sprites.png",
+  "cellSize": 32,
+  "columns": 8,
+  "rows": 4,
+  "sprites": [
+    "hero_sword", "razor_sword", "gilded_sword", "hero_shield", "mirror_shield", "sheath", "hookshot", "bow",
+    "ashen_wisp", "glasswing", "mirebound_husk", "clockwork_mite", "hollow_stag", "echo_shade", "tide_lurker", "lantern_mimic",
+    "starfall_sentinel", "gravebloom", "boss_bloom", "boss_cinder", "boss_undertow", "boss_astral", "boss_regent", "spirit_leaf",
+    "spirit_ember", "spirit_tide", "spirit_star", "spirit_stone", "heart", "bomb", "ocarina", "unknown"
+  ]
+}

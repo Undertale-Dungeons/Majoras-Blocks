@@ -32,12 +32,12 @@ public final class DungeonStructureBuilder {
         room(level, origin, 0, 0, 11, palette, counter, true);
         room(level, origin, 16, 0, 11, palette, counter, true);
         room(level, origin, 0, 16, 11, palette, counter, true);
-        room(level, origin, 16, 16, 17, palette, counter, false);
+        room(level, origin, 13, 13, 17, palette, counter, false);
 
-        corridor(level, origin, 10, 4, 16, 3, palette, counter, true);
+        corridor(level, origin, 10, 4, 3, 6, palette, counter, true);
         corridor(level, origin, 4, 10, 3, 6, palette, counter, false);
-        corridor(level, origin, 20, 10, 3, 6, palette, counter, false);
-        corridor(level, origin, 4, 26, 16, 3, palette, counter, true);
+        corridor(level, origin, 20, 10, 3, 3, palette, counter, false);
+        corridor(level, origin, 10, 20, 3, 3, palette, counter, true);
 
         // Puzzle pedestals in the three smaller chambers.
         pedestal(level, origin.offset(5, 0, 5), palette, counter);
@@ -45,8 +45,8 @@ public final class DungeonStructureBuilder {
         pedestal(level, origin.offset(5, 0, 21), palette, counter);
 
         // A distinct boss dais and four corner lights.
-        int bossCenterX = origin.getX() + 24;
-        int bossCenterZ = origin.getZ() + 24;
+        int bossCenterX = origin.getX() + 21;
+        int bossCenterZ = origin.getZ() + 21;
         for (int dx = -3; dx <= 3; dx++) {
             for (int dz = -3; dz <= 3; dz++) {
                 if (Math.abs(dx) == 3 || Math.abs(dz) == 3) {

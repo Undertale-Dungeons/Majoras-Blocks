@@ -41,6 +41,11 @@ public final class BossCatalog {
     }
 
     public static List<Boss> original() {
-        return BOSSES.stream().filter(boss -> boss.dungeonId().contains("_")).toList();
+        return BOSSES.stream()
+                .filter(boss -> {
+                    DungeonCatalog.Dungeon dungeon = DungeonCatalog.byId(boss.dungeonId());
+                    return dungeon != null && dungeon.origin() == DungeonCatalog.Origin.ORIGINAL;
+                })
+                .toList();
     }
 }

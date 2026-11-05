@@ -142,10 +142,13 @@ public final class BlacksmithService {
     }
 
     public static int countRupees(ServerPlayer player) {
-        return player.getInventory().items.stream()
-                .filter(stack -> stack.is(ModItems.RUPEE))
-                .mapToInt(ItemStack::getCount)
-                .sum();
+        int total = 0;
+        var inventory = player.getInventory();
+        for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
+            ItemStack stack = inventory.getItem(slot);
+            if (stack.is(ModItems.RUPEE)) total += stack.getCount();
+        }
+        return total;
     }
 
     public static boolean grantRupees(ServerPlayer player, int amount) {
@@ -156,8 +159,9 @@ public final class BlacksmithService {
 
     private static void removeRupees(ServerPlayer player, int amount) {
         int remaining = amount;
-        for (ItemStack stack : player.getInventory().items) {
-            if (remaining <= 0) break;
+        var inventory = player.getInventory();
+        for (int slot = 0; slot < inventory.getContainerSize() && remaining > 0; slot++) {
+            ItemStack stack = inventory.getItem(slot);
             if (!stack.is(ModItems.RUPEE)) continue;
             int taken = Math.min(remaining, stack.getCount());
             stack.shrink(taken);

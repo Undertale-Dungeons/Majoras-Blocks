@@ -106,7 +106,7 @@ public final class LandmarkBuilder {
         }
         for (int[] corner : new int[][]{{-6,-6},{6,-6},{-6,6},{6,6}}) {
             pillar(l, o.offset(corner[0], 1, corner[1]), 5,
-                    Blocks.POLISHED_ANDESITE, Blocks.COPPER_BLOCK, c);
+                    Blocks.POLISHED_ANDESITE, Blocks.GOLD_BLOCK, c);
         }
         for (int x = -5; x <= 5; x++) {
             place(l, o.offset(x, 6, -6), Blocks.SPRUCE_PLANKS.defaultBlockState(), c);
@@ -120,13 +120,13 @@ public final class LandmarkBuilder {
         place(l, o.offset(-2, 1, -4), Blocks.ANVIL.defaultBlockState(), c);
         place(l, o.offset(2, 1, -4), Blocks.SMITHING_TABLE.defaultBlockState(), c);
         place(l, o.offset(0, 1, 2), Blocks.CAMPFIRE.defaultBlockState(), c);
-        place(l, o.offset(0, 2, 2), Blocks.CHAIN.defaultBlockState(), c);
+        place(l, o.offset(0, 2, 2), Blocks.IRON_BARS.defaultBlockState(), c);
         place(l, o.offset(0, 3, 2), Blocks.CAMPFIRE.defaultBlockState(), c);
         place(l, o.offset(-4, 1, 0), Blocks.BARREL.defaultBlockState(), c);
         place(l, o.offset(4, 1, 0), Blocks.BARREL.defaultBlockState(), c);
         place(l, o.offset(-3, 1, -2), Blocks.LANTERN.defaultBlockState(), c);
         place(l, o.offset(3, 1, -2), Blocks.LANTERN.defaultBlockState(), c);
-        place(l, o.offset(0, 6, 0), Blocks.COPPER_BLOCK.defaultBlockState(), c);
+        place(l, o.offset(0, 6, 0), Blocks.GOLD_BLOCK.defaultBlockState(), c);
     }
 
     private static void fountain(ServerLevel l,BlockPos o,Counter c){

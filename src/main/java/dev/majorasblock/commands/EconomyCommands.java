@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.majorasblock.economy.BlacksmithService;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.permissions.Permissions;
 
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
@@ -25,7 +26,7 @@ public final class EconomyCommands {
                                     return 1;
                                 }))
                                 .then(literal("grant")
-                                        .requires(source -> source.hasPermission(2))
+                                        .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
                                         .then(argument("amount", IntegerArgumentType.integer(1, 640))
                                                 .executes(context -> {
                                                     var player = context.getSource().getPlayerOrException();

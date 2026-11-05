@@ -1,105 +1,57 @@
 # Majora's Block
 
-<p align="center">
-  <strong>A mysterious adventure is coming to Minecraft.</strong><br>
-  An ambitious Fabric mod inspired by <em>The Legend of Zelda: Majora's Mask</em>.
-</p>
+A fan-made Minecraft Java adventure mod inspired by the atmosphere, world, and sense of mystery of The Legend of Zelda: Majora's Mask.
 
-<p align="center">
-  <img alt="Minecraft" src="https://img.shields.io/badge/Minecraft-Java%20Edition-3C8527?logo=minecraft&logoColor=white">
-  <img alt="Mod loader" src="https://img.shields.io/badge/Mod%20Loader-Fabric-DBB45B">
-  <img alt="Status" src="https://img.shields.io/badge/Status-Early%20Development-orange">
-  <img alt="Version" src="https://img.shields.io/badge/Version-Not%20Released-lightgrey">
-</p>
+## Current build
 
----
+- Minecraft Java Edition 26.2
+- Fabric Loader 0.19.3 or newer
+- Fabric API 0.161.0+26.2
+- Java 25
+- Development build; not a finished release
 
-## About
+## What's playable in this build
 
-**Majora's Block** is a fan-made Minecraft adventure project drawing inspiration from the atmosphere, world, and sense of mystery of *The Legend of Zelda: Majora's Mask*.
+- Ocarina: appears in the Majora's Block Creative tab. Right-click plays the original Song of Friendship. Sneak and right-click plays the original Song of Healing.
+- Friendship arrival: /majorasblock friendship accept or deny controls whether other players may arrive nearby. The Ocarina only moves you to a nearby player who has opted in and only when a safe landing spot is found.
+- Clockwork Hourglass: a craftable item that advances the adventure clock toward sunrise.
+- Eight Spirit Charms: craftable reusable items that grant short exploration or defensive buffs.
+- Original songs: Friendship, Healing, Inverted Time, Chosen Hour, and Double Time play through Minecraft's chime instrument.
+- Time systems: view the adventure clock with /majorasblock status; use the song commands for the supported time effects.
+- DROWNED atmosphere: optional per-player sound and text ambience, with four intensity levels.
 
-The goal is to create a substantial adventure experience with exploration, distinctive equipment, memorable encounters, and systems that make the world feel alive.
+## Getting the build
 
-Some things are better discovered in-game. This page intentionally keeps story details and secret content under wraps.
+Open the repository's Actions page at https://github.com/Undertale-Dungeons/Majoras-Blocks/actions, choose the latest successful Build run, and download its majoras-block artifact. Extract the archive and place the playable JAR in your Minecraft 26.2 Fabric mods folder. Install Fabric Loader and the matching Fabric API first.
 
-> The project is in early development. Features, plans, and technical requirements may change as development progresses.
+The workflow uploads only the playable mod JAR. Developer source archives are not included in the artifact.
 
-## Project details
+## Commands
 
-| | |
-|---|---|
-| Project | Majora's Block |
-| Minecraft edition | Java Edition |
-| Target version | 26.2 |
-| Mod loader | Fabric |
-| Multiplayer | Planned |
-| Release status | Not released |
+Run /majorasblock help in game to see the current command list.
 
-## What to expect
+Player commands:
+- /majorasblock status
+- /majorasblock drowned off|subtle|uneasy|full
+- /majorasblock friendship accept and /majorasblock friendship deny
+- /majorasblock song friendship [player]
+- /majorasblock song healing
+- /majorasblock song inverted_time
+- /majorasblock song double_time
+- /majorasblock song chosen_hour <hour> <minute>
+- /majorasblock dungeon list
+- /majorasblock spirit list
 
-- **Exploration** — discover unusual places, hidden paths, and secrets.
-- **Adventure progression** — find equipment, unlock abilities, and grow stronger.
-- **Combat** — face a variety of enemies and challenging encounters.
-- **Dungeons** — explore adventure challenges and solve environmental puzzles.
-- **A world with a clock** — experience events shaped by the passage of time.
-- **Collectibles** — seek out useful items and mysterious discoveries.
-- **Multiplayer support** — multiplayer is a development goal, subject to testing.
+Operator commands:
+- /majorasblock dungeon build <dungeon_id>
+- /majorasblock enemy list
+- /majorasblock enemy spawn <enemy_id>
+- /majorasblock time slow|normal|set <hour> <minute>
 
-This is a preview of the project's direction, not a promise that every feature is already implemented.
+## What is not finished yet
 
-## Development
+The dungeon builder currently creates test shells and pedestals, not complete puzzle dungeons. The enemy roster is still mapped to vanilla prototype entities; custom enemy models and AI are unfinished. Boss encounters, puzzle interactions, persistent spirit progression, and live multiplayer testing are also unfinished. Do not treat the catalogue entries as complete encounters.
 
-The project is currently being prepared for development. There are no public playable builds yet.
+## Project and legal
 
-Please do not treat planned features as implemented until they appear in a released build or a documented development update.
-
-### Roadmap
-
-- [ ] Establish the Fabric project structure
-- [ ] Implement core gameplay foundations
-- [ ] Build the world and exploration systems
-- [ ] Add equipment and progression
-- [ ] Develop enemies and encounters
-- [ ] Create major adventure content
-- [ ] Implement and test multiplayer features
-- [ ] Polish, optimize, and prepare a release
-
-Roadmap items are intentionally broad to avoid spoiling unrevealed content.
-
-## Installation
-
-There is currently no public release to install.
-
-When a build becomes available, installation instructions and supported dependencies will be published here. Do not download unofficial files claiming to be an official release.
-
-## Bug reports and suggestions
-
-Bug reports, ideas, and constructive feedback are welcome.
-
-Before opening an issue:
-1. Check whether the issue has already been reported.
-2. Include the Minecraft version and relevant mod versions.
-3. Describe what happened and what you expected.
-4. Include logs or screenshots when useful.
-
-Use the repository's **Issues** tab to report a problem or suggest an improvement.
-
-## Contributing
-
-Contribution instructions will be added when the development workflow is established. Please open an issue before starting large changes so proposed work can be discussed first.
-
-## Credits and legal
-
-Majora's Block is an unofficial, fan-made project. It is not affiliated with, endorsed by, or sponsored by Nintendo, Mojang Studios, or Microsoft.
-
-*The Legend of Zelda* and *The Legend of Zelda: Majora's Mask*, including their associated names, characters, and original assets, are the property of their respective rights holders. Minecraft is the property of Mojang Studios and Microsoft.
-
-This project is intended to use original project code and original or appropriately licensed assets. No original game assets are implied to be included.
-
-A software license has not yet been selected. Until one is added to this repository, no license to reuse, modify, or redistribute this project's contents is granted by this README.
-
----
-
-<p align="center">
-  <sub>Thanks for checking out Majora's Block. Keep an eye on this repository for development updates.</sub>
-</p>
+This is an unofficial fan project and is not affiliated with or endorsed by Nintendo, Mojang Studios, or Microsoft. Names and original game intellectual property belong to their respective owners. This repository's code and assets remain subject to the terms stated in the repository until an explicit software license is published.

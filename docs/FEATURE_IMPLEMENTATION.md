@@ -1,21 +1,23 @@
 # Feature implementation notes
 
-## Original sprite atlas
+## Items and exploration
 
-The adventure atlas contains original pixel-art icons for the new enemy families, the five original dungeon bosses, deity spirits, and adventure collectibles. The images are project-created and do not use extracted Nintendo sprites.
+The registered Ocarina is visible in a dedicated Majora's Block Creative tab. It plays the original Friendship theme on normal use and the Healing theme while sneaking. Friendship arrival requires the nearby recipient to opt in for the current server session and checks for a safe landing position.
 
-## Original music
+The Clockwork Hourglass advances the adventure clock toward sunrise. Eight reusable Spirit Charms apply short, five-minute exploration or defensive effects. All ten items are listed in the custom Creative tab and have crafting recipes.
 
-The ocarina plays original note sequences for Friendship, Inverted Time, Chosen Hour, Double Time, and Healing. These themes are composed for this project and played through Minecraft's chime instrument.
+## Original music and time
+
+The five original note sequences are Friendship, Inverted Time, Chosen Hour, Double Time, and Healing. They are played using Minecraft's chime instrument. The day-clock system supports viewing the current adventure day and supported time-song effects.
 
 ## Dungeons and enemies
 
-The dungeon catalogue includes the four returning region concepts and five original boss dungeons. The development command can build a safe test shell in open air. The enemy roster has prototype spawn mappings using vanilla base entities until original entity models, AI, animations, drops, and spawn rules are finished.
+The catalogue contains four returning region concepts and five original dungeons, alongside nine boss concepts and 24 enemy concepts. The dungeon command currently builds a primitive safe test shell, not a complete puzzle dungeon. Enemy spawn entries currently use vanilla base entities as placeholders; original AI, models, animation, loot, and spawn rules are unfinished.
 
 ## DROWNED atmosphere mode
 
-DROWNED is an optional per-player atmosphere layer with four intensity levels. It uses transient sound and text cues only. It cannot read, write, rename, delete, replace, or create world/player save files.
+DROWNED is an optional per-player atmosphere layer with four intensity levels. It uses transient sound and text cues only and does not access world or player save files.
 
 ## Still in development
 
-Custom enemy entity classes and models, boss AI and phase logic, dungeon puzzle interactions, the client ocarina note-input interface, camera/render layers, persistent per-player progression, and multiplayer playtests are not complete.
+Complete dungeon puzzle interactions, original enemy and boss entities, boss encounter phases, persistent spirit progression, client-side ocarina note input, custom camera/render layers, and real multiplayer playtesting remain unfinished. CI verifies the build and unit tests; it does not replace launching the mod in Minecraft.

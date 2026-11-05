@@ -139,13 +139,13 @@ public final class DungeonStructureBuilder {
             case "glassroot_catacombs" -> new Palette(Blocks.MOSSY_STONE_BRICKS,
                     Blocks.MOSSY_COBBLESTONE, Blocks.AMETHYST_BLOCK, Blocks.GLOWSTONE, Blocks.EMERALD_BLOCK);
             case "emberwake_foundry" -> new Palette(Blocks.POLISHED_BASALT,
-                    Blocks.DEEPSLATE_BRICKS, Blocks.COPPER_BLOCK, Blocks.LANTERN, Blocks.MAGMA_BLOCK);
+                    Blocks.DEEPSLATE_BRICKS, Blocks.RAW_COPPER_BLOCK, Blocks.LANTERN, Blocks.MAGMA_BLOCK);
             case "tideglass_observatory" -> new Palette(Blocks.PRISMARINE_BRICKS,
                     Blocks.DARK_PRISMARINE, Blocks.SEA_LANTERN, Blocks.SEA_LANTERN, Blocks.DIAMOND_BLOCK);
             case "starfall_bastion" -> new Palette(Blocks.END_STONE_BRICKS,
                     Blocks.PURPUR_BLOCK, Blocks.AMETHYST_BLOCK, Blocks.END_ROD, Blocks.LAPIS_BLOCK);
             case "clockwork_reliquary" -> new Palette(Blocks.TUFF_BRICKS,
-                    Blocks.POLISHED_TUFF, Blocks.COPPER_BLOCK, Blocks.SOUL_LANTERN, Blocks.COPPER_BLOCK);
+                    Blocks.POLISHED_TUFF, Blocks.RAW_COPPER_BLOCK, Blocks.SOUL_LANTERN, Blocks.RAW_COPPER_BLOCK);
             case "woodfall" -> new Palette(Blocks.MOSSY_STONE_BRICKS,
                     Blocks.MOSSY_COBBLESTONE, Blocks.MOSS_BLOCK, Blocks.GLOWSTONE, Blocks.EMERALD_BLOCK);
             case "snowhead" -> new Palette(Blocks.PACKED_ICE,

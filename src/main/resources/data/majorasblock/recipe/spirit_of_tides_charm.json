@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "BMB",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:nautilus_shell"
+    },
+    "B": {
+      "item": "minecraft:prismarine_crystals"
+    },
+    "M": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "id": "majorasblock:spirit_of_tides_charm",
+    "count": 1
+  }
+}

@@ -1,4 +1,13 @@
 {
   "item.majorasblock.ocarina": "Ocarina",
+  "item.majorasblock.clockwork_hourglass": "Clockwork Hourglass",
+  "item.majorasblock.spirit_of_motion_charm": "Spirit Charm of Motion",
+  "item.majorasblock.spirit_of_moonlight_charm": "Spirit Charm of Moonlight",
+  "item.majorasblock.spirit_of_tides_charm": "Spirit Charm of Tides",
+  "item.majorasblock.spirit_of_stone_charm": "Spirit Charm of Stone",
+  "item.majorasblock.spirit_of_echoes_charm": "Spirit Charm of Echoes",
+  "item.majorasblock.spirit_of_sunrise_charm": "Spirit Charm of Sunrise",
+  "item.majorasblock.spirit_of_wind_charm": "Spirit Charm of Wind",
+  "item.majorasblock.spirit_of_stillness_charm": "Spirit Charm of Stillness",
   "itemGroup.majorasblock": "Majora's Block"
 }

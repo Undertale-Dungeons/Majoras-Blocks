@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "minecraft:stone"
+    }
+  ],
+  "result": {
+    "id": "majorasblock:stone_mask",
+    "count": 1
+  }
+}

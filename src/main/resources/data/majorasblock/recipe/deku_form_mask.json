@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "minecraft:turtle_scute"
+    }
+  ],
+  "result": {
+    "id": "majorasblock:deku_form_mask",
+    "count": 1
+  }
+}

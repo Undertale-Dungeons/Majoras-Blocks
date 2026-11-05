@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "minecraft:packed_ice"
+    }
+  ],
+  "result": {
+    "id": "majorasblock:frost_mask",
+    "count": 1
+  }
+}

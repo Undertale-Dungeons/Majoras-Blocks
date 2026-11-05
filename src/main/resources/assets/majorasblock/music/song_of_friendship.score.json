@@ -1,0 +1,19 @@
+{
+  "title": "Song of Friendship",
+  "composer": "Majora's Block original score",
+  "tempoBpm": 112,
+  "timeSignature": "4/4",
+  "loop": false,
+  "notes": [
+    { "pitch": 72, "beats": 0.5 }, { "pitch": 76, "beats": 0.5 },
+    { "pitch": 79, "beats": 0.75 }, { "pitch": 76, "beats": 0.5 },
+    { "pitch": 74, "beats": 0.5 }, { "pitch": 77, "beats": 0.75 },
+    { "pitch": 79, "beats": 0.5 }, { "pitch": 84, "beats": 1.0 },
+    { "pitch": 79, "beats": 0.5 }, { "pitch": 77, "beats": 0.5 },
+    { "pitch": 76, "beats": 0.75 }, { "pitch": 74, "beats": 0.5 },
+    { "pitch": 72, "beats": 1.0 }, { "pitch": 76, "beats": 0.5 },
+    { "pitch": 79, "beats": 0.5 }, { "pitch": 84, "beats": 1.25 }
+  ],
+  "instrument": "celesta",
+  "license": "Original composition created for Majora's Block"
+}

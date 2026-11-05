@@ -2,8 +2,8 @@ package dev.majorasblock.content;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Temporary world-spawn prototypes for the new enemy roster.
- * Each uses a vanilla base entity until its original model and AI are complete.
+ * Temporary enemy-spawn prototypes. Each prototype uses a known vanilla base
+ * entity until its custom registered type, AI, and renderer are implemented.
  */
 public final class EnemyPrototypeService {
     private static final Map<String, String> BASE_TYPES = Map.ofEntries(
@@ -49,6 +49,10 @@ public final class EnemyPrototypeService {
     public record SpawnResult(boolean success, String message, Entity entity) {}
 
     public static SpawnResult spawn(ServerLevel level, BlockPos position, String enemyId) {
+        if (level == null || position == null || enemyId == null) {
+            return new SpawnResult(false, "Missing level, position, or enemy id.", null);
+        }
+
         Optional<EnemyCatalog.Enemy> definition = EnemyCatalog.byId(enemyId);
         if (definition.isEmpty()) {
             return new SpawnResult(false, "Unknown enemy id: " + enemyId, null);
@@ -63,12 +67,12 @@ public final class EnemyPrototypeService {
                 Identifier.parse("minecraft:" + baseTypeId)
         ).orElse(null);
         if (type == null) {
-            return new SpawnResult(false, "Missing prototype base type: " + baseTypeId, null);
+            return new SpawnResult(false, "Missing vanilla prototype base type: " + baseTypeId, null);
         }
 
         Entity entity = type.spawn(level, position, EntitySpawnReason.COMMAND);
         if (entity == null) {
-            return new SpawnResult(false, "Minecraft could not spawn the prototype.", null);
+            return new SpawnResult(false, "Minecraft could not spawn the prototype at that position.", null);
         }
 
         entity.setCustomName(Component.literal(definition.get().name() + " (Prototype)"));

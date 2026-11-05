@@ -1,12 +1,12 @@
 package dev.majorasblock.horror;
 
 import dev.majorasblock.horror.DrownedModeController.Effect;
-import dev.majorasblock.horror.DrownedModeController.Intensity;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 
@@ -15,8 +15,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Per-player DROWNED atmosphere runtime. It sends short, non-interactive cues
- * and never reads or writes world/player files.
+ * Per-player transient horror cues. This class deliberately has no filesystem
+ * access and never creates, reads, changes, renames, or deletes world saves.
  */
 public final class DrownedRuntime {
     private static final Map<UUID, DrownedModeController> MODES = new ConcurrentHashMap<>();
@@ -30,16 +30,18 @@ public final class DrownedRuntime {
         ServerTickEvents.END_SERVER_TICK.register(DrownedRuntime::tick);
     }
 
-    public static void setIntensity(UUID playerId, Intensity intensity) {
+    public static void setIntensity(UUID playerId, DrownedModeController.Intensity intensity) {
+        if (playerId == null) return;
         controller(playerId).setIntensity(intensity);
     }
 
-    public static Intensity intensity(UUID playerId) {
+    public static DrownedModeController.Intensity intensity(UUID playerId) {
+        if (playerId == null) return DrownedModeController.Intensity.OFF;
         return controller(playerId).intensity();
     }
 
     public static void clear(UUID playerId) {
-        MODES.remove(playerId);
+        if (playerId != null) MODES.remove(playerId);
     }
 
     private static DrownedModeController controller(UUID playerId) {
@@ -65,23 +67,23 @@ public final class DrownedRuntime {
             case MUSIC_NOTE_DETUNE ->
                     playCue(player, SoundEvents.NOTE_BLOCK_CHIME, SoundSource.RECORDS, 0.22f, 0.56f, tick);
             case REFLECTION_DELAY, QUIET_WATER_RIPPLE ->
-                    player.displayClientMessage(Component.literal("The water moved a moment too late."), true);
+                    player.sendOverlayMessage(Component.literal("The water moved a moment too late."));
             case FARAWAY_SILHOUETTE, DISTANT_PLAYER_SHAPE ->
-                    player.displayClientMessage(Component.literal("A figure stands at the edge of sight."), true);
+                    player.sendOverlayMessage(Component.literal("A figure stands at the edge of sight."));
             case CLOCK_FACE_FLICKER ->
-                    player.displayClientMessage(Component.literal("The clock skips one quiet beat."), true);
+                    player.sendOverlayMessage(Component.literal("The clock skips one quiet beat."));
             case NON_INTERACTIVE_TEXT_GLITCH, NAMELESS_CHAT_ECHO ->
-                    player.displayClientMessage(Component.literal("...  /  ..."), true);
+                    player.sendOverlayMessage(Component.literal("...  /  ..."));
             case UNATTENDED_LANTERN ->
-                    player.displayClientMessage(Component.literal("A light is burning with nobody near it."), true);
+                    player.sendOverlayMessage(Component.literal("A light is burning with nobody near it."));
             case FALSE_DOOR_SHADOW ->
-                    player.displayClientMessage(Component.literal("There is a doorway where the wall should be."), true);
+                    player.sendOverlayMessage(Component.literal("There is a doorway where the wall should be."));
             case SINGLE_FRAME_SKY_FLICKER ->
-                    player.displayClientMessage(Component.literal("For an instant, the sky looks unfamiliar."), true);
+                    player.sendOverlayMessage(Component.literal("For an instant, the sky looks unfamiliar."));
         }
     }
 
-    private static void playCue(ServerPlayer player, net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent> sound,
+    private static void playCue(ServerPlayer player, net.minecraft.core.Holder<SoundEvent> sound,
                                 SoundSource source, float volume, float pitch, long tick) {
         player.connection.send(new ClientboundSoundPacket(
                 sound, source,

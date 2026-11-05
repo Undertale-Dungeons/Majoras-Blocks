@@ -11,12 +11,15 @@
   "license": "All-Rights-Reserved",
   "environment": "*",
   "entrypoints": {
-    "main": ["dev.majorasblock.MajorasBlock"]
+    "main": ["dev.majorasblock.MajorasBlock"],
+    "client": ["dev.majorasblock.client.MajorasBlockClient"]
   },
   "depends": {
     "fabricloader": ">=0.19.3",
     "minecraft": "26.2",
     "java": ">=25",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "fabric-key-binding-api-v1": "*",
+    "fabric-rendering-v1": "*"
   }
 }

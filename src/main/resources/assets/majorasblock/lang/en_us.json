@@ -85,5 +85,7 @@
   "item.majorasblock.rootbound_vest": "Rootbound Vest",
   "item.majorasblock.stargazer_cloak": "Stargazer Cloak",
   "item.majorasblock.quietstep_boots": "Quietstep Boots",
-  "item.majorasblock.springheel_gloves": "Springheel Gloves"
+  "item.majorasblock.springheel_gloves": "Springheel Gloves",
+  "key.category.majorasblock.controls": "Majora's Block",
+  "key.majorasblock.focus": "Toggle Focus Camera"
 }

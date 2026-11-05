@@ -6,7 +6,11 @@ The current registries expose 54 masks, 20 relics, eight Deity Spirit charms, th
 
 Six added defensive/traversal relics are Moonlit Buckler, Reefguard Ward, Rootbound Vest, Stargazer Cloak, Quietstep Boots, and Springheel Gloves. They provide temporary protection or exploration effects when used and are not equipment-slot armour.
 
-Directional front, back, and side flip movement bursts are available through `/majorasblock flip`. They have a cooldown and are independent of target lock and combat.
+Directional front, back, and side flip movement bursts are available through `/majorasblock flip`. They have a cooldown and are independent from offensive combat actions.
+
+## Focus camera
+
+The client initializer registers a configurable focus key (default R). It selects the best-aligned visible living entity within 16 blocks, smoothly turns the player's view toward that entity, and displays its name and distance on the HUD. Focus is client-only and releases when the entity becomes invalid, leaves range, or is no longer visible. It does not send attack actions, apply damage, or implement weapon handling.
 
 ## RPG and spirit progression
 

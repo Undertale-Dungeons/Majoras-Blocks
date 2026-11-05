@@ -18,7 +18,7 @@ A fan-made Minecraft Java adventure mod inspired by the atmosphere, world, masks
 - **9 boss concepts**, with themed memorial arenas for each.
 - **24 enemy concepts** and **24 friendly wandering-creature concepts**.
 - **6 buildable landmarks**, including the Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.
-- Six new defensive/traversal gear pieces and directional front, back, and side flip mobility; five original ocarina melodies, a three-day clock, DROWNED atmosphere mode, friendship travel, and session-based adventure progression.
+- Six new defensive/traversal gear pieces, directional front/back/side flip mobility, a client-side focus camera, five original ocarina melodies, a three-day clock, DROWNED atmosphere mode, friendship travel, and session-based adventure progression.
 
 The catalogues and item collections are in the build. Some encounter and visual content is still prototype-level; see the honest implementation status below.
 
@@ -37,6 +37,8 @@ The catalogues and item collections are in the build. Some encounter and visual 
 **Three-day cycle.** The clock cycles through three adventure days and announces the final-day and moon-approach stages. It does not yet perform a world-destroying moonfall event.
 
 **DROWNED mode.** Optional per-player ambience with four intensity settings. It uses transient sound and text cues only and does not access or modify world or player save files.
+
+**Focus camera.** Press **R** (rebindable in Options > Controls) to focus the nearest visible living entity in front of you within 16 blocks. The camera turns smoothly toward it and a focus label appears on the HUD. Press R again to release focus. This is a client-side camera/movement aid only; it does not add attacks, weapon actions, or damage logic.
 
 **Multiplayer.** Friendship arrivals require the destination player to opt in. The current multiplayer work is limited and still needs live server testing.
 
@@ -72,8 +74,6 @@ Operator commands:
 Open the [GitHub Actions page](https://github.com/Undertale-Dungeons/Majoras-Blocks/actions), choose the latest successful **Build** run, and download the **majoras-block** artifact. Extract it and place the playable JAR in the Minecraft 26.2 Fabric `mods` folder. Install Fabric Loader and the matching Fabric API first.
 
 The build workflow uploads only the playable mod JAR, not the developer sources JAR.
-
-Flip moves are directional movement bursts with a cooldown. They do not include Z-targeting, attack lock, or combat actions.
 
 ## Still in development
 

@@ -28,21 +28,11 @@ public final class FocusMovementController {
             boolean rightHeld,
             boolean jumpPressed
     ) {
-        if (!focusLocked) {
-            return Move.NONE;
-        }
-        if (jumpPressed && backwardHeld) {
-            return Move.BACKFLIP;
-        }
-        if (jumpPressed && leftHeld) {
-            return Move.SIDE_DASH_LEFT;
-        }
-        if (jumpPressed && rightHeld) {
-            return Move.SIDE_DASH_RIGHT;
-        }
-        if (backwardHeld) {
-            return Move.BACKSTEP;
-        }
+        if (!focusLocked) return Move.NONE;
+        if (jumpPressed && backwardHeld) return Move.BACKFLIP;
+        if (jumpPressed && leftHeld) return Move.SIDE_DASH_LEFT;
+        if (jumpPressed && rightHeld) return Move.SIDE_DASH_RIGHT;
+        if (backwardHeld) return Move.BACKSTEP;
         return Move.NONE;
     }
 
@@ -51,6 +41,7 @@ public final class FocusMovementController {
     }
 
     public static CameraMode nextCameraMode(CameraMode current) {
+        if (current == null) return defaultCameraMode();
         return switch (current) {
             case FIRST_PERSON -> CameraMode.THIRD_PERSON_BACK;
             case THIRD_PERSON_BACK -> CameraMode.THIRD_PERSON_FRONT;

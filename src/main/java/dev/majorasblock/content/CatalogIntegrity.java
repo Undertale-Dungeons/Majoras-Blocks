@@ -1,9 +1,9 @@
 package dev.majorasblock.content;
 
 import dev.majorasblock.deity.DeitySpiritCatalog;
-import dev.majorasblock.music.OriginalMusicCatalog;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /** Fast startup validation for content links that would otherwise fail in play. */
@@ -57,7 +57,7 @@ public final class CatalogIntegrity {
         }
     }
 
-    private static void requireUnique(String kind, java.util.List<String> ids) {
+    private static void requireUnique(String kind, List<String> ids) {
         Set<String> unique = new HashSet<>(ids);
         if (unique.size() != ids.size()) {
             throw new IllegalStateException("Duplicate " + kind + " id in content catalogue.");

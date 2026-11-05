@@ -8,8 +8,8 @@ import java.util.UUID;
 /**
  * Validates a Song of Friendship arrival request.
  *
- * This class only creates a destination plan. A later server integration performs
- * the teleport after checking the target position against world collision data.
+ * This pure planning layer does not teleport players. A server integration must
+ * verify a collision-free destination and execute the teleport.
  */
 public final class FriendshipSongService {
     public record PlayerPresence(
@@ -22,7 +22,7 @@ public final class FriendshipSongService {
             boolean acceptsFriendshipArrivals
     ) {
         public PlayerPresence {
-            friends = Set.copyOf(friends);
+            friends = friends == null ? Set.of() : Set.copyOf(friends);
         }
     }
 
@@ -47,13 +47,13 @@ public final class FriendshipSongService {
             return Optional.empty();
         }
 
-        boolean travellerKnowsFriend = traveller.friends().contains(friendId);
-        boolean friendKnowsTraveller = friend.friends().contains(travellerId);
-        if (!travellerKnowsFriend || !friendKnowsTraveller) {
+        if (!traveller.friends().contains(friendId) || !friend.friends().contains(travellerId)) {
             return Optional.empty();
         }
 
-        if (friend.dimensionId() == null || friend.dimensionId().isBlank()) {
+        if (friend.dimensionId() == null || friend.dimensionId().isBlank()
+                || !Double.isFinite(friend.x()) || !Double.isFinite(friend.y())
+                || !Double.isFinite(friend.z())) {
             return Optional.empty();
         }
 

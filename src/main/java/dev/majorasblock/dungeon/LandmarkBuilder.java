@@ -65,23 +65,23 @@ public final class LandmarkBuilder {
         for(int x=-4;x<=4;x++){place(l,o.offset(x,1,0),Blocks.OBSIDIAN.defaultBlockState(),c);
             place(l,o.offset(x,10,0),Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(),c);}
         for(int y=1;y<=10;y++)for(int x:new int[]{-4,4})place(l,o.offset(x,y,0),Blocks.OBSIDIAN.defaultBlockState(),c);
-        for(int x=-3;x<=3;x++)for(int y=2;y<=9;y++)place(l,o.offset(x,y,0),Blocks.PURPLE_STAINED_GLASS.defaultBlockState(),c);
+        for(int x=-3;x<=3;x++)for(int y=2;y<=9;y++)place(l,o.offset(x,y,0),Blocks.GLASS.defaultBlockState(),c);
         place(l,o.offset(-5,1,0),Blocks.SOUL_LANTERN.defaultBlockState(),c);
         place(l,o.offset(5,1,0),Blocks.SOUL_LANTERN.defaultBlockState(),c);
     }
     private static void clockTower(ServerLevel l,BlockPos o,Counter c){
         disk(l,o,8,Blocks.COBBLED_DEEPSLATE,c);
         for(int y=0;y<17;y++)for(int x:new int[]{-5,5})for(int z:new int[]{-5,5})
-            place(l,o.offset(x,y,z),Blocks.CUT_COPPER.defaultBlockState(),c);
+            place(l,o.offset(x,y,z),Blocks.IRON_BLOCK.defaultBlockState(),c);
         for(int x=-5;x<=5;x++)for(int y=0;y<17;y++){
             place(l,o.offset(x,y,-5),Blocks.DEEPSLATE_BRICKS.defaultBlockState(),c);
             place(l,o.offset(x,y,5),Blocks.DEEPSLATE_BRICKS.defaultBlockState(),c);}
         for(int x=-4;x<=4;x++)for(int z=-4;z<=4;z++)if(Math.abs(x)==4||Math.abs(z)==4)
-            place(l,o.offset(x,17,z),Blocks.COPPER_BLOCK.defaultBlockState(),c);
+            place(l,o.offset(x,17,z),Blocks.GOLD_BLOCK.defaultBlockState(),c);
         for(int x=-2;x<=2;x++)for(int y=8;y<=12;y++)
-            place(l,o.offset(x,y,-6),Blocks.YELLOW_STAINED_GLASS.defaultBlockState(),c);
+            place(l,o.offset(x,y,-6),Blocks.GLASS.defaultBlockState(),c);
         place(l,o.offset(0,10,-7),Blocks.GOLD_BLOCK.defaultBlockState(),c);
-        place(l,o.offset(0,18,0),Blocks.LIGHTNING_ROD.defaultBlockState(),c);
+        place(l,o.offset(0,18,0),Blocks.AMETHYST_BLOCK.defaultBlockState(),c);
     }
     private static void grove(ServerLevel l,BlockPos o,Counter c){
         disk(l,o,9,Blocks.MOSS_BLOCK,c);

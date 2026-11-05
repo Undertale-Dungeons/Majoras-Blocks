@@ -1,6 +1,8 @@
 package dev.majorasblock.content;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -57,7 +59,9 @@ public final class EnemyPrototypeService {
             return new SpawnResult(false, "No prototype mapping for: " + enemyId, null);
         }
 
-        EntityType<?> type = EntityType.byString("minecraft:" + baseTypeId).orElse(null);
+        EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getOptional(
+                Identifier.parse("minecraft:" + baseTypeId)
+        ).orElse(null);
         if (type == null) {
             return new SpawnResult(false, "Missing prototype base type: " + baseTypeId, null);
         }

@@ -1,9 +1,11 @@
 package dev.majorasblock;
 
+import dev.majorasblock.commands.AdventureCommands;
 import dev.majorasblock.content.DungeonCatalog;
 import dev.majorasblock.content.EnemyCatalog;
 import dev.majorasblock.content.SongCatalog;
 import dev.majorasblock.deity.DeitySpiritCatalog;
+import dev.majorasblock.time.AdventureTimeRuntime;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,9 @@ public final class MajorasBlock implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        AdventureTimeRuntime.register();
+        AdventureCommands.register();
+
         LOGGER.info(
                 "Majora's Block {} initialised: {} dungeons, {} original enemy types, {} songs, {} deity spirits catalogued",
                 MOD_ID,

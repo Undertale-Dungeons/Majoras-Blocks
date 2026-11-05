@@ -53,11 +53,20 @@ public final class FriendshipArrivalRuntime {
             return null;
         }
         double limitSquared = maxDistance * maxDistance;
-        return traveller.serverLevel().players().stream()
+        ServerLevel travellerLevel = (ServerLevel) traveller.level();
+        return travellerLevel.getServer().getPlayerList().getPlayers().stream()
+                .filter((ServerPlayer friend) -> friend.level() == travellerLevel)
                 .filter(friend -> canArrive(traveller.getUUID(), friend.getUUID()))
-                .filter(friend -> friend.distanceToSqr(traveller) <= limitSquared)
-                .min(java.util.Comparator.comparingDouble(friend -> friend.distanceToSqr(traveller)))
+                .filter(friend -> distanceSquared(friend, traveller) <= limitSquared)
+                .min(java.util.Comparator.comparingDouble(friend -> distanceSquared(friend, traveller)))
                 .orElse(null);
+    }
+
+    private static double distanceSquared(ServerPlayer first, ServerPlayer second) {
+        double dx = first.getX() - second.getX();
+        double dy = first.getY() - second.getY();
+        double dz = first.getZ() - second.getZ();
+        return dx * dx + dy * dy + dz * dz;
     }
 
     public static boolean teleport(ServerPlayer traveller, ServerPlayer friend) {

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "BCB",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
+    },
+    "B": {
+      "item": "minecraft:moss_block"
+    },
+    "C": {
+      "item": "minecraft:golden_apple"
+    }
+  },
+  "result": {
+    "id": "majorasblock:rootbound_vest",
+    "count": 1
+  }
+}

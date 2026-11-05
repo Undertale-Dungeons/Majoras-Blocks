@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["A A", "BCB"],
+  "key": {"A": {"item": "minecraft:feather"}, "B": {"item": "minecraft:rabbit_foot"}, "C": {"item": "minecraft:leather"}},
+  "result": {"id": "majorasblock:springheel_gloves", "count": 1}
+}

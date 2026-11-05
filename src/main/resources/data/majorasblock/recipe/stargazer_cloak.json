@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["ABA", "BCB", " A "],
+  "key": {"A": {"item": "minecraft:phantom_membrane"}, "B": {"item": "minecraft:amethyst_shard"}, "C": {"item": "minecraft:white_wool"}},
+  "result": {"id": "majorasblock:stargazer_cloak", "count": 1}
+}

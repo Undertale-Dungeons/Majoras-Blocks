@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["A A", "BCB", "B B"],
+  "key": {"A": {"item": "minecraft:leather"}, "B": {"item": "minecraft:rabbit_foot"}, "C": {"item": "minecraft:black_wool"}},
+  "result": {"id": "majorasblock:quietstep_boots", "count": 1}
+}

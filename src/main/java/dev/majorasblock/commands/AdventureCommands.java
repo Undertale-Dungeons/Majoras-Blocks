@@ -3,6 +3,8 @@ package dev.majorasblock.commands;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.majorasblock.dungeon.DungeonStructureBuilder;
+import dev.majorasblock.player.EquipmentCarryRegistry;
+import dev.majorasblock.player.EquipmentCarryState;
 import dev.majorasblock.time.AdventureTimeRuntime;
 import dev.majorasblock.time.ThreeDayCycle;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -98,6 +100,50 @@ public final class AdventureCommands {
                                                                 );
                                                                 return 1;
                                                             })))))
+            );
+            dispatcher.register(
+                    literal("gear")
+                            .then(literal("status").executes(context -> {
+                                var player = context.getSource().getPlayerOrException();
+                                EquipmentCarryState state = EquipmentCarryRegistry.get(player.getUUID());
+                                context.getSource().sendSuccess(
+                                        () -> Component.literal("Weapon: " + state.activeWeaponId()
+                                                + " (" + state.weaponAttachment() + ")"
+                                                + " | Shield: " + state.activeShieldId()
+                                                + " (" + state.shieldAttachment() + ")"),
+                                        false
+                                );
+                                return 1;
+                            }))
+                            .then(literal("draw").executes(context -> {
+                                var player = context.getSource().getPlayerOrException();
+                                EquipmentCarryState state = EquipmentCarryRegistry.get(player.getUUID());
+                                state.drawWeapon();
+                                context.getSource().sendSuccess(
+                                        () -> Component.literal("Weapon drawn."),
+                                        false
+                                );
+                                return 1;
+                            }))
+                            .then(literal("sheathe").executes(context -> {
+                                var player = context.getSource().getPlayerOrException();
+                                EquipmentCarryRegistry.get(player.getUUID()).sheatheWeapon();
+                                context.getSource().sendSuccess(() -> Component.literal("Weapon sheathed."), false);
+                                return 1;
+                            }))
+                            .then(literal("shield")
+                                    .then(literal("raise").executes(context -> {
+                                        var player = context.getSource().getPlayerOrException();
+                                        EquipmentCarryRegistry.get(player.getUUID()).raiseShield();
+                                        context.getSource().sendSuccess(() -> Component.literal("Shield raised."), false);
+                                        return 1;
+                                    }))
+                                    .then(literal("lower").executes(context -> {
+                                        var player = context.getSource().getPlayerOrException();
+                                        EquipmentCarryRegistry.get(player.getUUID()).lowerShield();
+                                        context.getSource().sendSuccess(() -> Component.literal("Shield lowered."), false);
+                                        return 1;
+                                    })))
             );
         });
     }

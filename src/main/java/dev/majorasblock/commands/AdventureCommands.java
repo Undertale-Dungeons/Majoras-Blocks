@@ -3,6 +3,7 @@ package dev.majorasblock.commands;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.majorasblock.dungeon.DungeonStructureBuilder;
+import dev.majorasblock.content.EnemyPrototypeService;
 import dev.majorasblock.music.OriginalSongPlaybackController;
 import dev.majorasblock.horror.DrownedModeController;
 import dev.majorasblock.horror.DrownedRuntime;
@@ -63,6 +64,26 @@ public final class AdventureCommands {
                                                 );
                                                 return 1;
                                             })))
+                            .then(literal("enemy")
+                                    .then(literal("spawn")
+                                            .then(argument("enemy", StringArgumentType.word())
+                                                    .executes(context -> {
+                                                        var player = context.getSource().getPlayerOrException();
+                                                        String enemyId = StringArgumentType.getString(context, "enemy");
+                                                        var spawnPos = player.blockPosition().relative(player.getDirection(), 3).above();
+                                                        var result = EnemyPrototypeService.spawn(
+                                                                context.getSource().getLevel(), spawnPos, enemyId);
+                                                        if (!result.success()) {
+                                                            context.getSource().sendFailure(Component.literal(result.message()));
+                                                            return 0;
+                                                        }
+                                                        context.getSource().sendSuccess(
+                                                                () -> Component.literal("Spawned " + result.message()
+                                                                        + " prototype. Custom AI and model are still in development."),
+                                                                true
+                                                        );
+                                                        return 1;
+                                                    }))))
                             .then(literal("dungeon")
                                     .then(literal("build")
                                             .then(argument("dungeon", StringArgumentType.word())

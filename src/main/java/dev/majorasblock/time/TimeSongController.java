@@ -51,7 +51,8 @@ public final class TimeSongController {
 
         long currentDayStart = Math.floorDiv(currentWorldTime, TICKS_PER_DAY) * TICKS_PER_DAY;
         long currentDayTick = Math.floorMod(currentWorldTime, TICKS_PER_DAY);
-        long targetDayTick = Math.floorMod((hour - 6L) * 1_000L + minute * (1_000L / 60L), TICKS_PER_DAY);
+        long minuteTicks = ((long) minute * 1_000L) / 60L;
+        long targetDayTick = Math.floorMod((hour - 6L) * 1_000L + minuteTicks, TICKS_PER_DAY);
         long target = currentDayStart + targetDayTick;
 
         if (target <= currentWorldTime || targetDayTick <= currentDayTick) {

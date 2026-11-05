@@ -58,10 +58,8 @@ public final class DrownedModeController {
         if (!isEnabled()) {
             return null;
         }
-        int offset = intensity.ordinal() * 7;
-        int index = Math.floorMod(worldTime + worldSeed + offset, EFFECTS.size()) > Integer.MAX_VALUE
-                ? 0
-                : (int) Math.floorMod(worldTime + worldSeed + offset, EFFECTS.size());
+        long offset = intensity.ordinal() * 7L;
+        int index = (int) Math.floorMod(worldTime + worldSeed + offset, (long) EFFECTS.size());
         return EFFECTS.get(index);
     }
 }

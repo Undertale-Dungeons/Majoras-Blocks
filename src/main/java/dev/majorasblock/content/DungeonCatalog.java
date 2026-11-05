@@ -21,7 +21,7 @@ public final class DungeonCatalog {
 
     private static final List<Dungeon> DUNGEONS = List.of(
             new Dungeon("woodfall", "Woodfall Temple", Origin.LEGACY,
-                    "Woodfall", "Overgrown ruins", "od wola", "Water routing and rotating rooms"),
+                    "Woodfall", "Overgrown ruins", "odolwa", "Water routing and rotating rooms"),
             new Dungeon("snowhead", "Snowhead Temple", Origin.LEGACY,
                     "Snowhead", "Frozen mountain", "goht", "Heat flow and shifting ice"),
             new Dungeon("great_bay", "Great Bay Temple", Origin.LEGACY,

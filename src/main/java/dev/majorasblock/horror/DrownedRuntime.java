@@ -64,7 +64,7 @@ public final class DrownedRuntime {
                     playCue(player, SoundEvents.AMBIENT_CAVE, SoundSource.AMBIENT, 0.18f, 0.52f, tick);
             case MUSIC_NOTE_DETUNE ->
                     playCue(player, SoundEvents.NOTE_BLOCK_CHIME, SoundSource.RECORDS, 0.22f, 0.56f, tick);
-            case BRIEF_REFLECTION_DELAY, QUIET_WATER_RIPPLE ->
+            case REFLECTION_DELAY, QUIET_WATER_RIPPLE ->
                     player.displayClientMessage(Component.literal("The water moved a moment too late."), true);
             case FARAWAY_SILHOUETTE, DISTANT_PLAYER_SHAPE ->
                     player.displayClientMessage(Component.literal("A figure stands at the edge of sight."), true);

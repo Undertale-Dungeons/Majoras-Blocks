@@ -145,7 +145,7 @@ public final class DungeonStructureBuilder {
             case "starfall_bastion" -> new Palette(Blocks.END_STONE_BRICKS,
                     Blocks.PURPUR_BLOCK, Blocks.AMETHYST_BLOCK, Blocks.END_ROD, Blocks.LAPIS_BLOCK);
             case "clockwork_reliquary" -> new Palette(Blocks.TUFF_BRICKS,
-                    Blocks.POLISHED_TUFF, Blocks.COPPER_BLOCK, Blocks.SOUL_LANTERN, Blocks.CLOCK_BLOCK);
+                    Blocks.POLISHED_TUFF, Blocks.COPPER_BLOCK, Blocks.SOUL_LANTERN, Blocks.COPPER_BLOCK);
             case "woodfall" -> new Palette(Blocks.MOSSY_STONE_BRICKS,
                     Blocks.MOSSY_COBBLESTONE, Blocks.MOSS_BLOCK, Blocks.GLOWSTONE, Blocks.EMERALD_BLOCK);
             case "snowhead" -> new Palette(Blocks.PACKED_ICE,

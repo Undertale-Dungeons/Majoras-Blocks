@@ -1,37 +1,35 @@
 # Development Roadmap
 
-This roadmap communicates broad development goals without revealing unreleased story details or secret content.
+This roadmap separates implemented foundations from unfinished production systems.
 
-Items are plans, not guarantees. Scope and order may change.
+## Implemented foundations
+- [x] Fabric project and automated Java 25 build
+- [x] 54-mask and 14-relic catalogues with registered items and recipes
+- [x] Deku, Goron, and Zora form ability states
+- [x] Eight spirit powers and fountain claim flow
+- [x] Ocarina, original song sequences, and clock commands
+- [x] Three-day clock announcements
+- [x] Moon exploration platform in the End with session return point
+- [x] Nine dungeon shells, nine boss memorial designs, and six landmarks
+- [x] 24 enemy prototypes and 24 friendly creature prototypes
+- [x] Session-based adventure XP and level rewards
+- [x] DROWNED ambience and consent-based Friendship arrivals
 
-## Foundations
-- [ ] Confirm Minecraft and Fabric toolchain
-- [ ] Establish project structure and build workflow
-- [ ] Add baseline configuration and registries
-- [ ] Set up development documentation
+## Gameplay production still needed
+- [ ] Custom enemy entity classes, models, animations, and field behavior
+- [ ] Boss entity classes and puzzle-based encounter logic
+- [ ] Complete dungeon rooms, switches, keys, and puzzle progression
+- [ ] Fully custom visual forms and transformation animations
+- [ ] Persistent player progression and spirit collection
+- [ ] A separately registered Moon dimension and its full region layout
+- [ ] More NPC dialogue, quests, and world events
+- [ ] Client-side ocarina interface and expanded presentation effects
 
-## Gameplay
-- [ ] Core player and world systems
-- [ ] Exploration and progression
-- [ ] Equipment and collectible systems
-- [ ] Combat and enemy behavior
-- [ ] Adventure content and major encounters
-
-## Presentation
-- [ ] Original visual assets
-- [ ] Models, animations, and effects
-- [ ] Original audio and sound design
-- [ ] User interface and accessibility polish
-
-## Multiplayer and quality
-- [ ] Server-authoritative gameplay
-- [ ] Multiplayer synchronization
-- [ ] Compatibility and performance testing
-- [ ] Bug fixing and release preparation
-
-## Releases
-- [ ] First development build
-- [ ] Public testing
+## Quality and release
+- [ ] In-game testing on a clean Minecraft 26.2 client
+- [ ] Dedicated-server and multiplayer playtests
+- [ ] Performance and compatibility testing
+- [ ] Accessibility and configuration options
 - [ ] First stable release
 
-Secret content and story specifics are deliberately omitted.
+Weapon and attack-focused mechanics are not part of this implementation pass. The focus here is exploration, forms, puzzles, collections, world systems, and non-combat content.

@@ -1,21 +1,29 @@
 # Feature implementation notes
 
-## Original sprite atlas
+## Collections and equipment
 
-The adventure atlas contains original pixel-art icons for the new enemy families, the five original dungeon bosses, deity spirits, and adventure collectibles. The images are project-created and do not use extracted Nintendo sprites.
+The current registries expose 54 masks, 14 relics, eight Deity Spirit charms, the Ocarina, and the Clockwork Hourglass in the Majora's Block Creative tab. Mask and relic catalogues have crafting recipes. Mask/relic use grants temporary exploration effects. Deku, Goron, and Zora form masks also set a session form state whose effects are refreshed while active; no custom player model swap is present yet.
 
-## Original music
+## RPG and spirit progression
 
-The ocarina plays original note sequences for Friendship, Inverted Time, Chosen Hour, Double Time, and Healing. These themes are composed for this project and played through Minecraft's chime instrument.
+Using masks and relics awards session XP. Spirit charms award XP and effects. The eight Deity Spirits can be claimed near a Deity Fountain built with the landmark command; each player may claim each spirit once per server session. Level rewards and spirit blessings are effects-based. Progression is not persistently saved yet.
 
-## Dungeons and enemies
+## Moon and three-day clock
 
-The dungeon catalogue includes the four returning region concepts and five original boss dungeons. The development command can build a safe test shell in open air. The enemy roster has prototype spawn mappings using vanilla base entities until original entity models, AI, animations, drops, and spawn rules are finished.
+The adventure clock reports a repeating three-day cycle and sends final-day/moon-approach announcements. Moon travel builds a lunar surface, crater rings, star pillars, and a gate above the End's central island. The player can return to the saved point from the same server session. It is not a separate registered dimension and does not trigger a destructive moonfall event.
 
-## DROWNED atmosphere mode
+## Songs and multiplayer
 
-DROWNED is an optional per-player atmosphere layer with four intensity levels. It uses transient sound and text cues only. It cannot read, write, rename, delete, replace, or create world/player save files.
+The Ocarina plays original Song of Friendship on normal use and Song of Healing while sneaking. The original score catalog contains Friendship, Healing, Inverted Time, Chosen Hour, and Double Time. Friendship arrivals are opt-in and use a safe landing check. These multiplayer features still need dedicated-server playtesting.
+
+## Dungeons, bosses, enemies, and landmarks
+
+There are nine dungeon entries and themed test-shell builders, nine boss briefs and memorial arenas, 24 enemy design entries with vanilla entity spawn prototypes, 24 friendly-creature entries mapped to vanilla animals, and six buildable landmarks. Enemy prototypes are not original registered entities; boss memorials are not boss encounters; and dungeon shells are not complete puzzle campaigns.
+
+## DROWNED atmosphere
+
+DROWNED is an optional per-player atmosphere layer with four intensity settings. It uses transient sound and text cues only and does not read, write, rename, delete, replace, or create world/player save files.
 
 ## Still in development
 
-Custom enemy entity classes and models, boss AI and phase logic, dungeon puzzle interactions, the client ocarina note-input interface, camera/render layers, persistent per-player progression, and multiplayer playtests are not complete.
+Custom enemy and boss entity classes, models, AI, animation, encounter interactions, full dungeon puzzle logic, custom player models, persistent RPG progression, a separate Moon dimension, client-side ocarina note input, expanded camera/render effects, and live multiplayer testing remain unfinished.

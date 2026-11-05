@@ -1,6 +1,7 @@
 package dev.majorasblock.content;
 
 import dev.majorasblock.MajorasBlock;
+import dev.majorasblock.items.OcarinaItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -23,8 +24,7 @@ public final class ModItems {
             new Item.Properties().equippable(EquipmentSlot.OFFHAND).stacksTo(1));
     public static final Item SHEATH = register("sword_sheath",
             new Item.Properties().stacksTo(1));
-    public static final Item OCARINA = register("ocarina",
-            new Item.Properties().stacksTo(1));
+    public static final Item OCARINA = registerOcarina();
 
     private ModItems() {}
 
@@ -33,6 +33,13 @@ public final class ModItems {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, identifier);
         Item item = new Item(properties.setId(key));
         return Registry.register(BuiltInRegistries.ITEM, key, item);
+    }
+
+    private static Item registerOcarina() {
+        Identifier identifier = Identifier.fromNamespaceAndPath(MajorasBlock.MOD_ID, "ocarina");
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, identifier);
+        return Registry.register(BuiltInRegistries.ITEM, key,
+                new OcarinaItem(new Item.Properties().stacksTo(1).setId(key)));
     }
 
     public static void register() {

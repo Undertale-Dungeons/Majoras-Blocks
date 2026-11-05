@@ -46,6 +46,20 @@ public final class FriendshipArrivalRuntime {
                 && accepts(friendId);
     }
 
+
+    /** Finds the closest same-dimension player who explicitly opted in. */
+    public static ServerPlayer nearestAcceptingFriend(ServerPlayer traveller, double maxDistance) {
+        if (traveller == null || !Double.isFinite(maxDistance) || maxDistance < 0.0) {
+            return null;
+        }
+        double limitSquared = maxDistance * maxDistance;
+        return traveller.serverLevel().players().stream()
+                .filter(friend -> canArrive(traveller.getUUID(), friend.getUUID()))
+                .filter(friend -> friend.distanceToSqr(traveller) <= limitSquared)
+                .min(java.util.Comparator.comparingDouble(friend -> friend.distanceToSqr(traveller)))
+                .orElse(null);
+    }
+
     public static boolean teleport(ServerPlayer traveller, ServerPlayer friend) {
         if (traveller == null || friend == null
                 || !canArrive(traveller.getUUID(), friend.getUUID())) {

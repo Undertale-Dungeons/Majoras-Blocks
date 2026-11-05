@@ -1,6 +1,7 @@
 package dev.majorasblock;
 
 import dev.majorasblock.commands.AdventureCommands;
+import dev.majorasblock.commands.AdventureGuideCommands;
 import dev.majorasblock.content.DungeonCatalog;
 import dev.majorasblock.content.CatalogIntegrity;
 import dev.majorasblock.content.EnemyCatalog;
@@ -27,6 +28,7 @@ public final class MajorasBlock implements ModInitializer {
         AdventureTimeRuntime.register();
         DrownedRuntime.register();
         AdventureCommands.register();
+        AdventureGuideCommands.register();
 
         LOGGER.info(
                 "Majora's Block {} initialised: {} dungeons, {} original enemy types, {} songs, {} deity spirits catalogued",

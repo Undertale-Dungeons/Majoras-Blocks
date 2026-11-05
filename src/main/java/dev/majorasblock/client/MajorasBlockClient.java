@@ -56,12 +56,12 @@ public final class MajorasBlockClient implements ClientModInitializer {
         while (FOCUS_KEY.consumeClick()) {
             if (focusedEntity != null) {
                 focusedEntity = null;
-            } else if (client.player != null && client.level != null && client.screen == null) {
+            } else if (client.player != null && client.level != null && client.gui.screen() == null) {
                 focusedEntity = findFocusTarget(client);
             }
         }
 
-        if (client.player == null || client.level == null || client.screen != null) {
+        if (client.player == null || client.level == null || client.gui.screen() != null) {
             focusedEntity = null;
             return;
         }

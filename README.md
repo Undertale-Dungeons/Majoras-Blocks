@@ -38,7 +38,9 @@ The catalogues and item collections are in the build. Some encounter and visual 
 
 **DROWNED mode.** Optional per-player ambience with four intensity settings. It uses transient sound and text cues only and does not access or modify world or player save files.
 
-**Focus camera.** Press **R** (rebindable in Options > Controls) to focus the nearest visible living entity in front of you within 16 blocks. The camera turns smoothly toward it and a focus label appears on the HUD. Press R again to release focus. This is a client-side camera/movement aid only; it does not add attacks, weapon actions, or damage logic.
+**Z-target focus.** Press **R** (rebindable in Options > Controls) to focus a visible living entity within 64 blocks. Focus can be started at any time, including when the target is not directly in front of you. Press **V** to cycle through visible targets and R again to release. The camera turns smoothly toward the selected target and the HUD shows its name and distance. This is a focus and movement feature, not an attack or damage system.
+
+**Cliff hanging.** Hold crouch while airborne and pressing against a wall to catch a ledge. Jump while still holding crouch to vault up and forward; release crouch to let go. This is a server-side traversal mechanic for multiplayer.
 
 **Multiplayer.** Friendship arrivals require the destination player to opt in. The current multiplayer work is limited and still needs live server testing.
 

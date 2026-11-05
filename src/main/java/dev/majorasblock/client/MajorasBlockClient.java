@@ -19,24 +19,33 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Client-only focus camera.
- * This feature only tracks and looks toward a visible entity; it performs no attacks
- * and applies no damage or other server-side combat actions.
+ * Client-only Z-style focus camera.
+ *
+ * Focus can be acquired whenever the player is in the world. Candidates must
+ * be alive, visible, and within 64 blocks. This controller changes view only;
+ * it does not implement weapon attacks, damage, or hit handling.
  */
 public final class MajorasBlockClient implements ClientModInitializer {
-    private static final double LOCK_RANGE = 16.0;
+    private static final double LOCK_RANGE = 64.0;
     private static final double LOCK_RANGE_SQUARED = LOCK_RANGE * LOCK_RANGE;
-    private static final double MINIMUM_AIM_DOT = 0.35;
     private static final float MAX_TURN_PER_TICK = 14.0F;
 
     private static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(
             Identifier.fromNamespaceAndPath("majorasblock", "controls"));
 
-    private static final KeyMapping FOCUS_KEY = KeyMappingHelper.registerKeyMapping(
+    private static final KeyMapping FOCUS_KEY = KeyBindingHelper.registerKeyMapping(
             new KeyMapping(
                     "key.majorasblock.focus",
                     InputConstants.Type.KEYSYM,
                     InputConstants.KEY_R,
+                    CATEGORY
+            ));
+
+    private static final KeyMapping NEXT_TARGET_KEY = KeyBindingHelper.registerKeyMapping(
+            new KeyMapping(
+                    "key.majorasblock.focus_next",
+                    InputConstants.Type.KEYSYM,
+                    InputConstants.KEY_V,
                     CATEGORY
             ));
 
@@ -53,17 +62,17 @@ public final class MajorasBlockClient implements ClientModInitializer {
     }
 
     private static void tick(Minecraft client) {
-        while (FOCUS_KEY.consumeClick()) {
-            if (focusedEntity != null) {
-                focusedEntity = null;
-            } else if (client.player != null && client.level != null && client.gui.screen() == null) {
-                focusedEntity = findFocusTarget(client);
-            }
-        }
-
         if (client.player == null || client.level == null || client.gui.screen() != null) {
             focusedEntity = null;
             return;
+        }
+
+        while (FOCUS_KEY.consumeClick()) {
+            focusedEntity = focusedEntity == null ? findFocusTarget(client, null) : null;
+        }
+
+        while (NEXT_TARGET_KEY.consumeClick()) {
+            if (focusedEntity != null) focusedEntity = findFocusTarget(client, focusedEntity);
         }
 
         if (focusedEntity == null) return;
@@ -71,7 +80,7 @@ public final class MajorasBlockClient implements ClientModInitializer {
         Player player = client.player;
         if (focusedEntity.isRemoved()
                 || !focusedEntity.isAlive()
-                || player.distanceToSqr(focusedEntity) > LOCK_RANGE_SQUARED * 2.25
+                || player.distanceToSqr(focusedEntity) > LOCK_RANGE_SQUARED
                 || !player.hasLineOfSight(focusedEntity)) {
             focusedEntity = null;
             return;
@@ -80,11 +89,11 @@ public final class MajorasBlockClient implements ClientModInitializer {
         rotateToward(player, focusedEntity);
     }
 
-    private static LivingEntity findFocusTarget(Minecraft client) {
+    private static LivingEntity findFocusTarget(Minecraft client, LivingEntity current) {
         Player player = client.player;
         Vec3 look = player.getLookAngle();
 
-        List<LivingEntity> candidates = client.level.getEntitiesOfClass(
+        List<Candidate> candidates = client.level.getEntitiesOfClass(
                 LivingEntity.class,
                 player.getBoundingBox().inflate(LOCK_RANGE),
                 entity -> entity != player
@@ -94,20 +103,31 @@ public final class MajorasBlockClient implements ClientModInitializer {
                         && !entity.isSpectator()
                         && player.hasLineOfSight(entity)
                         && player.distanceToSqr(entity) <= LOCK_RANGE_SQUARED
-        );
+        ).stream()
+                .map(entity -> new Candidate(entity, score(player, look, entity)))
+                .sorted(Comparator.comparingDouble(Candidate::score).reversed())
+                .toList();
 
-        return candidates.stream()
-                .map(entity -> new Candidate(entity, aimScore(player, look, entity)))
-                .filter(candidate -> candidate.score() >= MINIMUM_AIM_DOT)
-                .max(Comparator.comparingDouble(Candidate::score))
-                .map(Candidate::entity)
-                .orElse(null);
+        if (candidates.isEmpty()) return null;
+        if (current == null) return candidates.getFirst().entity();
+
+        for (int i = 0; i < candidates.size(); i++) {
+            if (candidates.get(i).entity() == current) {
+                return candidates.get((i + 1) % candidates.size()).entity();
+            }
+        }
+        return candidates.getFirst().entity();
     }
 
-    private static double aimScore(Player player, Vec3 look, LivingEntity target) {
+    private static double score(Player player, Vec3 look, LivingEntity target) {
         Vec3 toward = target.getEyePosition().subtract(player.getEyePosition());
-        if (toward.lengthSqr() < 1.0E-6) return 1.0;
-        return look.dot(toward.normalize());
+        double distance = toward.length();
+        if (distance < 1.0E-6) return 1.0;
+        double alignment = look.dot(toward.scale(1.0 / distance));
+        double proximity = 1.0 - (distance / LOCK_RANGE);
+        // Aim alignment is preferred, while visible targets behind the player
+        // remain eligible and can be selected with the next-target key.
+        return alignment * 0.65 + proximity * 0.35;
     }
 
     private static void rotateToward(Player player, LivingEntity target) {
@@ -130,12 +150,12 @@ public final class MajorasBlockClient implements ClientModInitializer {
         LivingEntity target = focusedEntity;
         if (target == null || client.player == null || target.isRemoved()) return;
 
-        String label = "FOCUS  " + target.getDisplayName().getString()
+        String label = "Z TARGET  " + target.getDisplayName().getString()
                 + "  " + Math.round(client.player.distanceTo(target)) + "m";
         int x = (client.getWindow().getGuiScaledWidth() - client.font.width(label)) / 2;
         int y = client.getWindow().getGuiScaledHeight() / 2 + 28;
 
-        graphics.fill(x - 5, y - 3, x + client.font.width(label) + 5, y + 12, 0x66000000);
+        graphics.fill(x - 5, y - 3, x + client.font.width(label) + 5, y + 12, 0x88000000);
         graphics.text(client.font, label, x, y, 0xFFFFD36E, true);
     }
 

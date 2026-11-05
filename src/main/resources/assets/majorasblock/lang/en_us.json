@@ -87,5 +87,6 @@
   "item.majorasblock.quietstep_boots": "Quietstep Boots",
   "item.majorasblock.springheel_gloves": "Springheel Gloves",
   "key.category.majorasblock.controls": "Majora's Block",
-  "key.majorasblock.focus": "Toggle Focus Camera"
+  "key.majorasblock.focus": "Toggle Z-Target Focus",
+  "key.majorasblock.focus_next": "Cycle Z-Target"
 }

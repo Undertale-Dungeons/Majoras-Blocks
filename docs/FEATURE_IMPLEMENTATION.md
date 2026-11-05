@@ -6,7 +6,7 @@ The current registries expose 54 masks, 20 relics, eight Deity Spirit charms, th
 
 Six added defensive/traversal relics are Moonlit Buckler, Reefguard Ward, Rootbound Vest, Stargazer Cloak, Quietstep Boots, and Springheel Gloves. They provide temporary protection or exploration effects when used and are not equipment-slot armour.
 
-Directional front, back, and side flip movement bursts are available through `/majorasblock flip`. They have a cooldown and are independent from offensive combat actions.
+Directional front, back, and side flip movement bursts are available through `/majorasblock flip`. They have a cooldown. A client-side Z-target focus camera is bound to R and can select visible living entities within 64 blocks; V cycles to the next visible target. Focus can be activated at any time and only changes view. Ledge hanging is a server-side traversal mechanic: hold crouch while airborne and colliding with a wall to hang, then jump while crouching to vault onto the ledge.
 
 ## Focus camera
 

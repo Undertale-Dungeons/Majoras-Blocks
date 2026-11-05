@@ -41,7 +41,7 @@ public final class MajorasBlockClient implements ClientModInitializer {
                     CATEGORY
             ));
 
-    private static final KeyMapping NEXT_TARGET_KEY = KeyBindingHelper.registerKeyMapping(
+    private static final KeyMapping NEXT_TARGET_KEY = KeyMappingHelper.registerKeyMapping(
             new KeyMapping(
                     "key.majorasblock.focus_next",
                     InputConstants.Type.KEYSYM,

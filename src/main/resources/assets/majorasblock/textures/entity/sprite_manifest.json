@@ -1,0 +1,12 @@
+{
+  "description": "Original Majora's Block adventure sprite atlas. Includes enemy, boss, spirit and adventure icons.",
+  "cellSize": 32,
+  "columns": 6,
+  "rows": 4,
+  "sprites": [
+    "ashen_wisp", "glasswing", "mirebound_husk", "clockwork_mite", "hollow_stag", "echo_shade",
+    "tide_lurker", "lantern_mimic", "starfall_sentinel", "gravebloom", "boss_bloom", "boss_cinder",
+    "boss_undertow", "boss_astral", "boss_regent", "spirit_leaf", "spirit_ember", "spirit_tide",
+    "spirit_star", "spirit_stone", "heart", "ocarina", "unknown"
+  ]
+}

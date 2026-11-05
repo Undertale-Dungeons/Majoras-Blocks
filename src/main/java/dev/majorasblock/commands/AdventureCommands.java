@@ -3,6 +3,7 @@ package dev.majorasblock.commands;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.majorasblock.dungeon.DungeonStructureBuilder;
+import dev.majorasblock.music.OriginalSongPlaybackController;
 import dev.majorasblock.player.EquipmentCarryRegistry;
 import dev.majorasblock.player.EquipmentCarryState;
 import dev.majorasblock.time.AdventureTimeRuntime;
@@ -22,6 +23,17 @@ import static net.minecraft.commands.Commands.literal;
 /** Operator commands for testing shared adventure-clock behavior. */
 public final class AdventureCommands {
     private AdventureCommands() {}
+
+    private static int playSong(com.mojang.brigadier.context.CommandContext<net.minecraft.commands.CommandSourceStack> context, String themeId) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        var player = context.getSource().getPlayerOrException();
+        boolean played = OriginalSongPlaybackController.playTheme(player, themeId);
+        if (!played) {
+            context.getSource().sendFailure(Component.literal("Unknown original song: " + themeId));
+            return 0;
+        }
+        context.getSource().sendSuccess(() -> Component.literal("Playing " + themeId.replace('_', ' ') + "."), false);
+        return 1;
+    }
 
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
@@ -47,6 +59,36 @@ public final class AdventureCommands {
                                                         );
                                                         return 1;
                                                     }))))
+                            .then(literal("song")
+                                    .then(literal("friendship").executes(context -> playSong(context, "song_of_friendship")))
+                                    .then(literal("inverted_time").executes(context -> {
+                                        AdventureTimeRuntime.activateInvertedTime(context.getSource().getServer());
+                                        playSong(context, "song_of_inverted_time");
+                                        context.getSource().sendSuccess(() -> Component.literal("The day clock now moves at half speed."), false);
+                                        return 1;
+                                    }))
+                                    .then(literal("double_time").executes(context -> {
+                                        AdventureTimeRuntime.fastForwardToChosenHour(context.getSource().getServer(), 6, 0);
+                                        playSong(context, "song_of_double_time");
+                                        return 1;
+                                    }))
+                                    .then(literal("chosen_hour")
+                                            .then(argument("hour", IntegerArgumentType.integer(0, 23))
+                                                    .then(argument("minute", IntegerArgumentType.integer(0, 59))
+                                                            .executes(context -> {
+                                                                int hour = IntegerArgumentType.getInteger(context, "hour");
+                                                                int minute = IntegerArgumentType.getInteger(context, "minute");
+                                                                AdventureTimeRuntime.fastForwardToChosenHour(
+                                                                        context.getSource().getServer(), hour, minute);
+                                                                playSong(context, "song_of_chosen_hour");
+                                                                context.getSource().sendSuccess(
+                                                                        () -> Component.literal("The clock advanced to "
+                                                                                + String.format("%02d:%02d", hour, minute) + "."),
+                                                                        false);
+                                                                return 1;
+                                                            }))))
+                                    .then(literal("healing").executes(context -> playSong(context, "song_of_healing")))
+                            )
                             .then(literal("status").executes(context -> {
                                 ServerLevel overworld = context.getSource().getServer().overworld();
                                 Optional<Holder<WorldClock>> clock = overworld.dimensionType().defaultClock();

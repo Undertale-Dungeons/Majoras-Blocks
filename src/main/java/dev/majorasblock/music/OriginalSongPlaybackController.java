@@ -26,7 +26,16 @@ public final class OriginalSongPlaybackController {
     }
 
     public static synchronized void playFriendship(ServerPlayer player) {
-        ACTIVE.put(player.getUUID(), new Session(OriginalMusicCatalog.friendship()));
+        playTheme(player, "song_of_friendship");
+    }
+
+    public static synchronized boolean playTheme(ServerPlayer player, String themeId) {
+        var theme = OriginalMusicCatalog.byId(themeId);
+        if (theme.isEmpty()) {
+            return false;
+        }
+        ACTIVE.put(player.getUUID(), new Session(theme.get()));
+        return true;
     }
 
     public static synchronized void stop(UUID playerId) {

@@ -2,6 +2,7 @@ package dev.majorasblock.economy;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.server.MinecraftServer;
+import dev.majorasblock.MajorasBlock;
 import net.minecraft.world.level.storage.LevelResource;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ public final class PersistentRewardStore {
         try (InputStream input = Files.newInputStream(file)) {
             DATA.load(input);
         } catch (IOException exception) {
-            server.getLogger().error("Could not load Majora's Block reward history.", exception);
+            MajorasBlock.LOGGER.error("Could not load Majora's Block reward history.", exception);
         }
     }
 

@@ -3,6 +3,10 @@ package dev.majorasblock.dungeon;
 import dev.majorasblock.content.BossCatalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
@@ -145,11 +149,11 @@ public final class LandmarkBuilder {
             default -> Blocks.OAK_PLANKS;
         };
         Block awning = switch (id) {
-            case "curio_shop" -> Blocks.PURPLE_WOOL;
-            case "spark_shop" -> Blocks.YELLOW_WOOL;
-            case "pottery_shop" -> Blocks.ORANGE_WOOL;
-            case "spirit_shop" -> Blocks.CYAN_WOOL;
-            default -> Blocks.RED_WOOL;
+            case "curio_shop" -> Blocks.OAK_PLANKS;
+            case "spark_shop" -> Blocks.SPRUCE_PLANKS;
+            case "pottery_shop" -> Blocks.BIRCH_PLANKS;
+            case "spirit_shop" -> Blocks.DARK_OAK_PLANKS;
+            default -> Blocks.ACACIA_PLANKS;
         };
         disk(l, o, 5, floor, c);
         for (int[] corner : new int[][]{{-4,-4},{4,-4},{-4,4},{4,4}}) {
@@ -185,12 +189,15 @@ public final class LandmarkBuilder {
             case "spirit_shop" -> "Neri the Spirit Trader";
             default -> "Toto the Clock Town Merchant";
         };
-        var villager = EntityType.VILLAGER.spawn(level, origin.offset(0, 1, 2), EntitySpawnReason.COMMAND);
-        if (villager != null) {
-            villager.setCustomName(net.minecraft.network.chat.Component.literal(name));
-            villager.setCustomNameVisible(true);
-            villager.setInvulnerable(true);
-            villager.setNoAi(true);
+        EntityType<?> villagerType = BuiltInRegistries.ENTITY_TYPE.getOptional(
+                Identifier.fromNamespaceAndPath("minecraft", "villager")).orElse(null);
+        if (villagerType == null) return;
+        Entity shopkeeper = villagerType.spawn(level, origin.offset(0, 1, 2), EntitySpawnReason.COMMAND);
+        if (shopkeeper != null) {
+            shopkeeper.setCustomName(net.minecraft.network.chat.Component.literal(name));
+            shopkeeper.setCustomNameVisible(true);
+            shopkeeper.setInvulnerable(true);
+            if (shopkeeper instanceof Mob mob) mob.setNoAi(true);
         }
     }
 
@@ -217,7 +224,7 @@ public final class LandmarkBuilder {
                     Blocks.POLISHED_DIORITE, Blocks.AMETHYST_BLOCK, c);
         }
         for (int x = -2; x <= 2; x++) {
-            place(l, o.offset(x, 1, 0), Blocks.PINK_TERRACOTTA.defaultBlockState(), c);
+            place(l, o.offset(x, 1, 0), Blocks.TERRACOTTA.defaultBlockState(), c);
         }
         place(l, o.offset(0, 2, 0), Blocks.AMETHYST_BLOCK.defaultBlockState(), c);
         place(l, o.offset(0, 3, 0), Blocks.SEA_LANTERN.defaultBlockState(), c);

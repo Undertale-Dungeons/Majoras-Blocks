@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version "\${loom_version}"
+    id 'net.fabricmc.fabric-loom' version '1.17.21'
     id 'maven-publish'
 }
 
@@ -16,10 +16,10 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:\${project.minecraft_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:\${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:\${project.fabric_api_version}"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
@@ -38,6 +38,6 @@ java {
 
 jar {
     from('LICENSE') {
-        rename { "\${it}_\${project.base.archivesName.get()}" }
+        rename { "${it}_${project.base.archivesName.get()}" }
     }
 }

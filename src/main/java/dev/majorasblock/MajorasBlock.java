@@ -1,5 +1,9 @@
 package dev.majorasblock;
 
+import dev.majorasblock.content.DungeonCatalog;
+import dev.majorasblock.content.EnemyCatalog;
+import dev.majorasblock.content.SongCatalog;
+import dev.majorasblock.deity.DeitySpiritCatalog;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +15,13 @@ public final class MajorasBlock implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Majora's Block {} is starting", MOD_ID);
+        LOGGER.info(
+                "Majora's Block {} initialised: {} dungeons, {} original enemy types, {} songs, {} deity spirits catalogued",
+                MOD_ID,
+                DungeonCatalog.all().size(),
+                EnemyCatalog.all().size(),
+                SongCatalog.all().size(),
+                DeitySpiritCatalog.all().size()
+        );
     }
 }

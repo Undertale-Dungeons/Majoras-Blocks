@@ -9,11 +9,16 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 
 /** Six buildable world landmarks and themed memorial arenas for the nine bosses. */
 public final class LandmarkBuilder {
     public record BuildResult(String name, BlockPos origin, int blocksPlaced) {}
     private record Palette(Block floor, Block wall, Block trim, Block light) {}
+    private static final Map<ResourceKey<Level>, Set<BlockPos>> DEITY_FOUNTAINS = new ConcurrentHashMap<>();
     private static final Map<String,String> LANDMARKS=Map.of(
         "deity_fountain","Deity Fountain","moon_gate","Moon Gate","clock_tower","Clock Town Clock Tower",
         "peabert_grove","Peabert Grove","sponge_grotto","Sponge Grotto","starfall_observatory","Starfall Observatory"
@@ -34,7 +39,25 @@ public final class LandmarkBuilder {
             case "starfall_observatory" -> observatory(level,o,c);
             default -> throw new IllegalStateException("Missing landmark builder: "+id);
         }
+        if (id.equals("deity_fountain")) {
+            DEITY_FOUNTAINS.computeIfAbsent(level.dimension(), ignored -> ConcurrentHashMap.newKeySet())
+                    .add(o.immutable());
+        }
         return new BuildResult(name,o,c.n);
+    }
+
+    public static boolean isNearDeityFountain(ServerLevel level, BlockPos position, int radius) {
+        if (level == null || position == null || radius < 0) return false;
+        Set<BlockPos> fountains = DEITY_FOUNTAINS.get(level.dimension());
+        if (fountains == null) return false;
+        long limit = (long) radius * radius;
+        for (BlockPos center : fountains) {
+            long dx = position.getX() - center.getX();
+            long dy = position.getY() - center.getY();
+            long dz = position.getZ() - center.getZ();
+            if (dx * dx + dy * dy + dz * dz <= limit) return true;
+        }
+        return false;
     }
 
     public static BuildResult buildBossMemorial(ServerLevel level,BlockPos requested,String bossId){

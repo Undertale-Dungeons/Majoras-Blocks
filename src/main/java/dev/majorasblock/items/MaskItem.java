@@ -2,6 +2,8 @@ package dev.majorasblock.items;
 
 import dev.majorasblock.content.MaskCatalog;
 import dev.majorasblock.content.RelicCatalog;
+import dev.majorasblock.player.AdventureProgressionRuntime;
+import dev.majorasblock.player.FormRuntime;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -41,9 +43,23 @@ public final class MaskItem extends Item {
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
-            for (Holder<MobEffect> effect : effects(power)) {
-                serverPlayer.addEffect(new MobEffectInstance(effect, DURATION, 0));
+            FormRuntime.Form form = switch (power) {
+                case DEKU_FORM -> FormRuntime.Form.DEKU;
+                case GORON_FORM -> FormRuntime.Form.GORON;
+                case ZORA_FORM -> FormRuntime.Form.ZORA;
+                default -> FormRuntime.Form.NONE;
+            };
+            if (form == FormRuntime.Form.NONE) {
+                FormRuntime.clear(serverPlayer.getUUID());
+                for (Holder<MobEffect> effect : effects(power)) {
+                    serverPlayer.addEffect(new MobEffectInstance(effect, DURATION, 0));
+                }
+            } else {
+                FormRuntime.activate(serverPlayer, form);
+                serverPlayer.sendSystemMessage(Component.literal("Transformation: "
+                        + form.name().toLowerCase() + " form."));
             }
+            AdventureProgressionRuntime.award(serverPlayer, 10, title);
             serverPlayer.sendSystemMessage(Component.literal(title + ": " + description));
         }
         return InteractionResult.SUCCESS;

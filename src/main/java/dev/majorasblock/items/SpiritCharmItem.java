@@ -1,5 +1,6 @@
 package dev.majorasblock.items;
 
+import dev.majorasblock.player.AdventureProgressionRuntime;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,6 +26,7 @@ public final class SpiritCharmItem extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             serverPlayer.addEffect(new MobEffectInstance(effect, BLESSING_DURATION_TICKS, 0));
+            AdventureProgressionRuntime.award(serverPlayer, 15, "Spirit Charm");
             serverPlayer.sendSystemMessage(Component.literal("A spirit's blessing settles over you."));
         }
         return InteractionResult.SUCCESS;

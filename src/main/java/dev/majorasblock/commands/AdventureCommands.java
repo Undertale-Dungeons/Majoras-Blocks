@@ -4,6 +4,8 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.majorasblock.dungeon.DungeonStructureBuilder;
 import dev.majorasblock.music.OriginalSongPlaybackController;
+import dev.majorasblock.horror.DrownedModeController;
+import dev.majorasblock.horror.DrownedRuntime;
 import dev.majorasblock.player.EquipmentCarryRegistry;
 import dev.majorasblock.player.EquipmentCarryState;
 import dev.majorasblock.time.AdventureTimeRuntime;
@@ -40,6 +42,27 @@ public final class AdventureCommands {
             dispatcher.register(
                     literal("majorasblock")
                             .requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_ADMIN))
+                            .then(literal("drowned")
+                                    .then(argument("intensity", StringArgumentType.word())
+                                            .executes(context -> {
+                                                var player = context.getSource().getPlayerOrException();
+                                                String value = StringArgumentType.getString(context, "intensity");
+                                                DrownedModeController.Intensity intensity;
+                                                try {
+                                                    intensity = DrownedModeController.Intensity.valueOf(value.toUpperCase());
+                                                } catch (IllegalArgumentException exception) {
+                                                    context.getSource().sendFailure(Component.literal(
+                                                            "Use off, subtle, uneasy, or full."));
+                                                    return 0;
+                                                }
+                                                DrownedRuntime.setIntensity(player.getUUID(), intensity);
+                                                context.getSource().sendSuccess(
+                                                        () -> Component.literal("DROWNED atmosphere set to "
+                                                                + intensity.name().toLowerCase() + "."),
+                                                        false
+                                                );
+                                                return 1;
+                                            })))
                             .then(literal("dungeon")
                                     .then(literal("build")
                                             .then(argument("dungeon", StringArgumentType.word())

@@ -5,6 +5,7 @@ import dev.majorasblock.content.DungeonCatalog;
 import dev.majorasblock.content.EnemyCatalog;
 import dev.majorasblock.content.ModItems;
 import dev.majorasblock.music.OriginalSongPlaybackController;
+import dev.majorasblock.horror.DrownedRuntime;
 import dev.majorasblock.content.SongCatalog;
 import dev.majorasblock.deity.DeitySpiritCatalog;
 import net.fabricmc.api.ModInitializer;
@@ -20,6 +21,7 @@ public final class MajorasBlock implements ModInitializer {
     public void onInitialize() {
         ModItems.register();
         OriginalSongPlaybackController.register();
+        DrownedRuntime.register();
         AdventureCommands.register();
 
         LOGGER.info(

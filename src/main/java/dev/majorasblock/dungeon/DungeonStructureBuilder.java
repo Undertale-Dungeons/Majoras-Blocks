@@ -50,7 +50,7 @@ public final class DungeonStructureBuilder {
         for (int dx = -3; dx <= 3; dx++) {
             for (int dz = -3; dz <= 3; dz++) {
                 if (Math.abs(dx) == 3 || Math.abs(dz) == 3) {
-                    place(level, new BlockPos(bossCenterX + dx, origin.getY() - 1,
+                    place(level, new BlockPos(bossCenterX + dx, origin.getY(),
                             bossCenterZ + dz), palette.bossMark().defaultBlockState(), counter);
                 }
             }

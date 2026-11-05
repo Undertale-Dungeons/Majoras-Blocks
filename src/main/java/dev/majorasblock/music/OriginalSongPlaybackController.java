@@ -55,7 +55,9 @@ public final class OriginalSongPlaybackController {
             Session session = entry.getValue();
             if (session.ticksUntilNextNote > 0) {
                 session.ticksUntilNextNote--;
-                continue;
+                if (session.ticksUntilNextNote > 0) {
+                    continue;
+                }
             }
 
             if (session.noteIndex >= session.theme.notes().size()) {
@@ -74,9 +76,15 @@ public final class OriginalSongPlaybackController {
                     Math.max(0.5f, Math.min(2.0f, pitch))
             );
 
-            double ticksPerBeat = 1_200.0 / session.theme.tempoBpm();
-            session.ticksUntilNextNote = Math.max(1, (int) Math.round(note.beats() * ticksPerBeat));
+            session.ticksUntilNextNote = ticksForNote(note.beats(), session.theme.tempoBpm());
         }
+    }
+
+    static int ticksForNote(double beats, int tempoBpm) {
+        if (!Double.isFinite(beats) || beats <= 0 || tempoBpm <= 0) {
+            throw new IllegalArgumentException("Beats and tempo must be positive finite values.");
+        }
+        return Math.max(1, (int) Math.round(beats * 1_200.0 / tempoBpm));
     }
 
     private static final class Session {

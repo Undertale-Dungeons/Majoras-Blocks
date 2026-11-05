@@ -220,54 +220,54 @@ public final class LandmarkBuilder {
 
 
     private static void blackKnightTrial(ServerLevel l, BlockPos o, Counter c) {
-        disk(l, o, 10, Blocks.BLACK_CONCRETE, c);
+        disk(l, o, 10, Blocks.POLISHED_BLACKSTONE_BRICKS, c);
         for (int x = -10; x <= 10; x++) {
             for (int z = -10; z <= 10; z++) {
                 int distance = x * x + z * z;
                 if (distance >= 85 && distance <= 108) {
-                    place(l, o.offset(x, 1, z), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+                    place(l, o.offset(x, 1, z), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
                 }
             }
         }
 
         // White-edged arch, with a dark opening.
         for (int y = 1; y <= 8; y++) {
-            place(l, o.offset(-4, y, -5), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(4, y, -5), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(-4, y, -5), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
+            place(l, o.offset(4, y, -5), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
         }
         for (int x = -4; x <= 4; x++) {
-            place(l, o.offset(x, 8, -5), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(x, 8, -5), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
         }
         for (int x = -3; x <= 3; x++) {
-            place(l, o.offset(x, 1, -5), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(x, 1, -5), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
         }
 
         // A block-built silhouette: white backing gives the black figure a sharp outline.
         for (int y = 1; y <= 4; y++) {
-            place(l, o.offset(0, y, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(0, y, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
         }
-        place(l, o.offset(-2, 2, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(2, 2, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(-1, 4, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(1, 4, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(-2, 2, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
+        place(l, o.offset(2, 2, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
+        place(l, o.offset(-1, 4, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
+        place(l, o.offset(1, 4, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
 
-        place(l, o.offset(0, 1, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(0, 2, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(-1, 2, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(1, 2, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(0, 3, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-        place(l, o.offset(0, 4, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
+        place(l, o.offset(0, 1, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+        place(l, o.offset(0, 2, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+        place(l, o.offset(-1, 2, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+        place(l, o.offset(1, 2, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+        place(l, o.offset(0, 3, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+        place(l, o.offset(0, 4, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
 
         // Antlers branch outward on both sides of the helmet.
         for (int side : new int[]{-1, 1}) {
-            place(l, o.offset(side, 5, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(side * 2, 6, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(side * 3, 6, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(side * 2, 7, 2), Blocks.BLACK_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(side, 5, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(side * 2, 6, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(side * 3, 6, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
-            place(l, o.offset(side * 2, 7, 3), Blocks.WHITE_CONCRETE.defaultBlockState(), c);
+            place(l, o.offset(side, 5, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 6, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+            place(l, o.offset(side * 3, 6, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 7, 2), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);
+            place(l, o.offset(side, 5, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 6, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
+            place(l, o.offset(side * 3, 6, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
+            place(l, o.offset(side * 2, 7, 3), Blocks.POLISHED_DIORITE.defaultBlockState(), c);
         }
 
         place(l, o.offset(0, 1, 0), Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), c);

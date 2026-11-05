@@ -12,7 +12,7 @@ The four familiar regions still hold their own history and guardians. Beyond the
 
 The player is not asked to collect power for its own sake. Each region should tell a small story about people adapting to a world that keeps repeating, and each dungeon should change how the player understands the clock.
 
-## The five original boss dungeons
+## The original boss dungeons and the Black Knight trial
 
 | Dungeon | Region | Boss | Main identity |
 |---|---|---|---|
@@ -22,7 +22,7 @@ The player is not asked to collect power for its own sake. Each region should te
 | Starfall Bastion | The Starfall Reach | The Astral Bailiff | Constellations, gravity rooms, broken astronomy |
 | Clockwork Reliquary | The Quiet Meridian | The Unwound Regent | Repeating rooms, memory records, clock mechanisms |
 
-The original four dungeons remain major pillars. Across side quests, exploration, characters, puzzles, items, and boss content, the design target is an approximately even split between returning inspiration and new material.
+The Black Knight Trial Court is a separate final threshold before Majora. It tests constellation alignment and composure rather than combat. The original four dungeons remain major pillars. Across side quests, exploration, characters, puzzles, items, and boss content, the design target is an approximately even split between returning inspiration and new material.
 
 ## New enemy families
 

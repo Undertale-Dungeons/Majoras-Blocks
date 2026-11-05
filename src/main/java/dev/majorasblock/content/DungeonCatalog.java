@@ -43,7 +43,10 @@ public final class DungeonCatalog {
                     "the_astral_bailiff", "Constellation alignment and low-gravity rooms"),
             new Dungeon("clockwork_reliquary", "Clockwork Reliquary", Origin.ORIGINAL,
                     "The Quiet Meridian", "A buried archive of interlocking clock chambers",
-                    "the_unwound_regent", "Repeating rooms and time-shifted switches")
+                    "the_unwound_regent", "Repeating rooms and time-shifted switches"),
+            new Dungeon("black_knight_trial", "Black Knight Trial Court", Origin.ORIGINAL,
+                    "The Last Threshold", "An antlered star court immediately before Majora",
+                    "black_knight", "Constellation alignment and composure")
     );
 
     private DungeonCatalog() {}

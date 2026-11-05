@@ -42,7 +42,7 @@ The Ocarina plays original Song of Friendship on normal use and Song of Healing 
 
 ## Dungeons, bosses, enemies, and landmarks
 
-There are nine dungeon entries and themed test-shell builders, nine boss briefs and memorial arenas, 24 enemy design entries with vanilla entity spawn prototypes, 24 friendly-creature entries mapped to vanilla animals, and six buildable landmarks. Enemy prototypes are not original registered entities; boss memorials are not boss encounters; and dungeon shells are not complete puzzle campaigns.
+There are ten dungeon entries and themed test-shell or trial-court builders, ten boss briefs and memorial arenas, 24 enemy design entries with vanilla entity spawn prototypes, 24 friendly-creature entries mapped to vanilla animals, and six buildable landmarks. Enemy prototypes are not original registered entities; boss memorials are not boss encounters; and dungeon shells are not complete puzzle campaigns.
 
 ## DROWNED atmosphere
 

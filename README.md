@@ -14,7 +14,7 @@ A fan-made Minecraft Java adventure mod inspired by the atmosphere, world, masks
 
 - **54 masks**, including Deku, Goron, and Zora form masks, Sponge Mask, Peabert Mask, and dozens of exploration masks.
 - **20 relics and travel items**, plus eight Deity Spirit charms, the Ocarina, and the Clockwork Hourglass.
-- **9 dungeons**: the four returning temple concepts and five original dungeons.
+- **10 dungeon entries**: the four returning temple concepts, five original dungeons, and the Black Knight's trial court.
 - **10 boss concepts**, including the Black Knight as the trial immediately before Majora, with themed memorial arenas for each.
 - **24 enemy concepts** and **24 friendly wandering-creature concepts**.
 - **16 buildable landmarks**, including the Blacksmith Forge, five Clock Town shops, spirit and heart shrines, Deity Fountain, Moon Gate, Clock Tower, Peabert Grove, Sponge Grotto, and Starfall Observatory.

@@ -21,9 +21,9 @@ public final class CatalogIntegrity {
         requireUnique("relic", RelicCatalog.all().stream().map(RelicCatalog.Relic::id).toList());
         requireUnique("ambient creature", WanderingCreatureCatalog.all().stream().map(WanderingCreatureCatalog.Creature::id).toList());
 
-        if (DungeonCatalog.legacy().size()!=4 || DungeonCatalog.original().size()!=5 || DungeonCatalog.all().size()!=9)
+        if (DungeonCatalog.legacy().size()!=4 || DungeonCatalog.original().size()!=6 || DungeonCatalog.all().size()!=10)
             throw new IllegalStateException("Expected four returning and five original dungeons.");
-        if (BossCatalog.original().size()!=5 || BossCatalog.all().size()!=9)
+        if (BossCatalog.original().size()!=6 || BossCatalog.all().size()!=10)
             throw new IllegalStateException("Expected four returning and five original bosses.");
         if (MaskCatalog.all().size()<50) throw new IllegalStateException("The mask collection must contain at least 50 masks.");
         if (RelicCatalog.all().size()<10) throw new IllegalStateException("The adventure equipment catalogue is incomplete.");

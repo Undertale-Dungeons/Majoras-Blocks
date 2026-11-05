@@ -10,7 +10,7 @@ This roadmap separates implemented foundations from unfinished production system
 - [x] Ocarina, original song sequences, and clock commands
 - [x] Three-day clock announcements
 - [x] Moon exploration platform in the End with session return point
-- [x] Nine dungeon shells, nine boss memorial designs, and six landmarks
+- [x] Ten dungeon entries, ten boss briefs and memorial or trial designs, and six landmarks
 - [x] 24 enemy prototypes and 24 friendly creature prototypes
 - [x] Session-based adventure XP and level rewards
 - [x] DROWNED ambience and consent-based Friendship arrivals
